@@ -38,6 +38,16 @@ function formatDateTime(datetimeLocalValue) {
 function homeworkPopup() {
     const popup = document.getElementById('homework-popup');
     popup.style.display = 'flex';
+    document.getElementById('popup-bg').style.display = 'block';
+    //i love copilot
+    const dueDateInput = document.getElementById("homework-due-date");
+    if (dueDateInput) {
+        const now = new Date();
+        const offset = now.getTimezoneOffset() * 60000; // Offset in milliseconds
+        const localDateTime = new Date(now.getTime() - offset); // Adjust to local time
+        const formattedDateTime = localDateTime.toISOString().slice(0, 16); // Format to 'YYYY-MM-DDTHH:mm'
+        dueDateInput.value = formattedDateTime;
+    }
 }
 
 function addHomework() {
@@ -59,17 +69,21 @@ function addHomework() {
 
     displayHomework();
     document.getElementById('homework-popup').style.display = 'none';
+    document.getElementById('popup-bg').style.display = 'none';
 }
 
 function displayHomework() {
     const homeworkList = document.getElementById('homework-container');
-    homeworkList.innerHTML = ''; 
+    homeworkList.innerHTML = '';
 
     for (let i = 0; i < homework.length; i++) {
         const homeworkItem = homework[i];
         const listItem = document.createElement('div');
-        listItem.innerHTML = `<button>✔</button> <strong>${homeworkItem.name}</strong> <p>${homeworkItem.description}</p> <p>${formatDateTime(homeworkItem.dueDate)}</p> <p>${homeworkItem.class}</p>`;
+        listItem.innerHTML = `<button>&#10003;</button> <strong>${homeworkItem.name}</strong> <p>${homeworkItem.description}</p> <p>${formatDateTime(homeworkItem.dueDate)}</p> <p>${homeworkItem.class}</p>`;
         homeworkList.appendChild(listItem);
+    }
+    if (homework.length === 0) {
+        homeworkList.innerHTML = '<h1 style="text-align: center;">No homework assigned.</h1>';
     }
 }
 
@@ -83,6 +97,12 @@ document.getElementById('add-homework-button').addEventListener('click', homewor
 
 document.getElementById('cancel-homework-button').addEventListener('click', () => {
     document.getElementById('homework-popup').style.display = 'none';
+    document.getElementById('popup-bg').style.display = 'none';
+});
+
+document.getElementById('popup-bg').addEventListener('click', () => {
+    document.getElementById('homework-popup').style.display = 'none';
+    document.getElementById('popup-bg').style.display = 'none';
 });
 
 document.getElementById('save-homework-button').addEventListener('click', addHomework);
