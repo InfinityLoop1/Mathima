@@ -77,6 +77,12 @@ function displayHomework() {
     }
 }
 
+function removeHomework(index) {
+    homework.splice(index, 1); // Remove the homework item at the specified index
+    localStorage.setItem('homework', JSON.stringify(homework)); // Update localStorage
+    displayHomework(); // Re-render the homework list
+}
+
 document.getElementById('add-homework-button').addEventListener('click', homeworkPopup);
 
 document.getElementById('cancel-homework-button').addEventListener('click', () => {
@@ -84,6 +90,13 @@ document.getElementById('cancel-homework-button').addEventListener('click', () =
 });
 
 document.getElementById('save-homework-button').addEventListener('click', addHomework);
+
+document.getElementById('homework-container').addEventListener('click', (event) => {
+    if (event.target.tagName === 'BUTTON') {
+        const index = Array.from(event.target.parentNode.parentNode.children).indexOf(event.target.parentNode);
+        removeHomework(index);
+    }
+});
 
 // Display homework on page load
 displayHomework();
