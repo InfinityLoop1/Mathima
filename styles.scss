@@ -68,13 +68,13 @@ body {
 
 #add-homework-button {
     position: absolute;
-    height: 7.5vh;
-    font-size: 200%;
-    padding: 10px;
-    right: 25vw;
-    top: 0;
-    border-radius: 0px 0px 10px 10px;
-    background-color: #303030;
+    height: 5vh;
+    width: 5vh;
+    font-size: 2.5vh;
+    right: calc(25vw + 20px);
+    top: 1.25vh;
+    border-radius: 50%;
+    background-color: #505050;
     color: #eeeeee;
     border: none;
     cursor: pointer;
@@ -83,10 +83,13 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
     &:hover {
-        background-color: #333333;
+        background-color: #606060;
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
     }
     &:active {
         background-color: #444444;
+        transform: scale(0.9);
     }
 }
 
@@ -147,6 +150,18 @@ body {
             border-radius: 5px;
             padding: 10px;
             cursor: pointer;
+            transition-duration: 0.25s;
+
+            &:hover {
+                width: 75%;
+            }
+        }
+
+        #cancel-homework-button:hover {
+            background-color: #a03030;
+        }
+        #save-homework-button:hover {
+            background-color: #30a030;
         }
     } 
 }
