@@ -75,15 +75,15 @@ function addHomework() {
 function displayHomework() {
     const homeworkList = document.getElementById('homework-container');
     homeworkList.innerHTML = '';
-
-    for (let i = 0; i < homework.length; i++) {
-        const homeworkItem = homework[i];
-        const listItem = document.createElement('div');
-        listItem.innerHTML = `<button>&#10003;</button> <strong>${homeworkItem.name}</strong> <p>${homeworkItem.description}</p> <p>${formatDateTime(homeworkItem.dueDate)}</p> <p>${homeworkItem.class}</p>`;
-        homeworkList.appendChild(listItem);
-    }
     if (homework.length === 0) {
         homeworkList.innerHTML = '<h1 style="text-align: center;">No homework assigned.</h1>';
+    } else {
+        for (let i = 0; i < homework.length; i++) {
+            const homeworkItem = homework[i];
+            const listItem = document.createElement('div');
+            listItem.innerHTML = `<button>&#10003;</button> <strong class="hw-name">${homeworkItem.name}</strong> <p class="hw-desc">${homeworkItem.description}</p> <p class="hw-dueDate">${formatDateTime(homeworkItem.dueDate)}</p> <p class="hw-subject">${homeworkItem.class}</p>`;
+            homeworkList.appendChild(listItem);
+        }
     }
 }
 

@@ -151,17 +151,19 @@ body {
             padding: 10px;
             cursor: pointer;
             transition-duration: 0.25s;
+        }
 
+        #cancel-homework-button {
+            width: 30%;
             &:hover {
-                width: 75%;
+                background-color: #a03030;
             }
         }
-
-        #cancel-homework-button:hover {
-            background-color: #a03030;
-        }
-        #save-homework-button:hover {
-            background-color: #30a030;
+        #save-homework-button {
+            width: 70%;
+            &:hover {
+                background-color: #30a030;
+            }
         }
     } 
 }
