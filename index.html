@@ -14,9 +14,24 @@
     <div id="homework-container">
 
     </div>
-    <button id="add-homework-button">
-        +
-    </button>
+    <div id="homework-controls">
+        <button id="add-homework-button">
+            Add Assignment
+        </button>
+        <select id="sort-homework-dropdown">
+            <option value="due-date">Sort by Due Date</option>
+            <option value="name">Sort by Name</option>
+            <option value="class">Sort by Subject</option>
+        </select>
+        <button id="clear-homework-button" onclick="clearHomework()">
+            Clear All Homework
+        </button>
+    </div>
+
+    <div id="test-container">
+        <small>This is a placeholder for a future feature.</small>
+    </div>
+    
     <div id="popup-bg"></div>
     <div id="homework-popup">
         <input type="text" id="homework-name" placeholder="Name">
