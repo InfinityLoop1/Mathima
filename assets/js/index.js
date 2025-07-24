@@ -19,6 +19,7 @@ function addEventPopup() {
 }
 
 function addHomework() {
+        homework = JSON.parse(localStorage.getItem('homework')) || [];
     const homeworkName = document.getElementById('homework-name').value;
     const homeworkDescription = document.getElementById('homework-description').value;
     const homeworkDueDate = document.getElementById('homework-due-date').value;
@@ -33,11 +34,11 @@ function addHomework() {
     };
     homework.push(newHomework);
 
-    localStorage.setItem('homework', JSON.stringify(homework));
     document.getElementById('add-event-popup').style.display = 'none';
     document.getElementById('popup-bg').style.display = 'none';
 
-    document.getElementById('page-frame').contentWindow.location.reload();
+    localStorage.setItem('homework', JSON.stringify(homework));
+    document.getElementById('page-frame').contentWindow.displayHomework();
 }
 
 
