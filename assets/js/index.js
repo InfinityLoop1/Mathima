@@ -19,7 +19,7 @@ function addEventPopup() {
 }
 
 function addHomework() {
-        homework = JSON.parse(localStorage.getItem('homework')) || [];
+    homework = JSON.parse(localStorage.getItem('homework')) || [];
     const homeworkName = document.getElementById('homework-name').value;
     const homeworkDescription = document.getElementById('homework-description').value;
     const homeworkDueDate = document.getElementById('homework-due-date').value;
@@ -29,8 +29,7 @@ function addHomework() {
         name: homeworkName,
         description: homeworkDescription,
         dueDate: homeworkDueDate,
-        class: homeworkClass,
-        completed: false,
+        class: homeworkClass
     };
     homework.push(newHomework);
 

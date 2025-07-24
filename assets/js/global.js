@@ -1,4 +1,5 @@
 let homework = localStorage.getItem('homework');
+let finishedHomework = JSON.parse(localStorage.getItem('finishedHomework')) || [];
 
 if (homework) {
     homework = JSON.parse(homework);
@@ -22,3 +23,14 @@ function formatDateTime(datetimeLocalValue) {
 
     return ` ${formattedTime} - ${formattedDate}`;
 }
+
+const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
+const now = Date.now();
+
+finishedHomework = finishedHomework.filter(item => {
+    if (!item.completedAt) return true;
+    const completedTime = new Date(item.completedAt).getTime();
+    return now - completedTime <= TWO_WEEKS_MS;
+});
+
+localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));

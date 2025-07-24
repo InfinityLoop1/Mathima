@@ -20,15 +20,26 @@ function displayHomework() {
         for (let i = 0; i < homework.length; i++) {
             const homeworkItem = homework[i];
             const listItem = document.createElement('div');
-            listItem.innerHTML = `<button>&#10003;</button> <strong class="hw-name">${homeworkItem.name}</strong> <p class="hw-desc">${homeworkItem.description}</p> <p class="hw-dueDate">${formatDateTime(homeworkItem.dueDate)}</p> <p class="hw-subject">${homeworkItem.class}</p>`;
+            listItem.innerHTML = `<button class="complete-btn material-symbols-rounded">check</button> <strong class="hw-name">${homeworkItem.name}</strong> <p class="hw-desc">${homeworkItem.description}</p> <p class="hw-dueDate">${formatDateTime(homeworkItem.dueDate)}</p> <p class="hw-subject">${homeworkItem.class}</p>`;
             homeworkList.appendChild(listItem);
         }
     }
 }
 
 function removeHomework(index) {
-    homework.splice(index, 1);
+    homework = JSON.parse(localStorage.getItem('homework')) || [];
+    finishedHomework = JSON.parse(localStorage.getItem('finishedHomework')) || [];
+
+    const [completed] = homework.splice(index, 1);
+    if (completed) {
+        completed.completedAt = new Date().toISOString();
+        finishedHomework.push(completed);
+        console.log(finishedHomework);
+    }
+
     localStorage.setItem('homework', JSON.stringify(homework));
+    localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));
+
     displayHomework();
 }
 
@@ -43,3 +54,54 @@ document.getElementById('homework-container').addEventListener('click', (event) 
 displayHomework();
 
 document.getElementById('sort-homework-dropdown').addEventListener('change', displayHomework);
+
+
+function toggleCompletedHomework() {
+    const button = document.getElementById('toggle-completed-button');
+    const homeworkList = document.getElementById('homework-container');
+    if (button.textContent === 'Show Completed') {
+        button.textContent = 'Hide Completed';
+        const finishedHomework = JSON.parse(localStorage.getItem('finishedHomework')) || [];
+        finishedHomework.forEach((item, idx) => {
+            const listItem = document.createElement('div');
+            listItem.innerHTML = `
+                <button class="restore-btn material-symbols-rounded">refresh</button>
+                <button class="delete-btn material-symbols-rounded">delete</button>
+                <strong class="hw-name">${item.name}</strong>
+                <p class="hw-desc">${item.description}</p>
+                <p class="hw-dueDate">${formatDateTime(item.dueDate)}</p>
+                <p class="hw-subject">${item.class}</p>
+            `;
+            // Restore button
+            listItem.querySelector('.restore-btn').addEventListener('click', () => {
+                const finishedHomeworkArr = JSON.parse(localStorage.getItem('finishedHomework')) || [];
+                const homeworkArr = JSON.parse(localStorage.getItem('homework')) || [];
+                const [restored] = finishedHomeworkArr.splice(idx, 1);
+                if (restored) {
+                    delete restored.completedAt;
+                    homeworkArr.push(restored);
+                }
+                localStorage.setItem('finishedHomework', JSON.stringify(finishedHomeworkArr));
+                localStorage.setItem('homework', JSON.stringify(homeworkArr));
+                button.textContent = 'Show Completed';
+                homeworkList.innerHTML = '';
+                displayHomework();
+            });
+            // Permanent delete button
+            listItem.querySelector('.delete-btn').addEventListener('click', () => {
+                const finishedHomeworkArr = JSON.parse(localStorage.getItem('finishedHomework')) || [];
+                finishedHomeworkArr.splice(idx, 1);
+                localStorage.setItem('finishedHomework', JSON.stringify(finishedHomeworkArr));
+                // Remove from UI
+                listItem.remove();
+            });
+            homeworkList.appendChild(listItem);
+        });
+    } else {
+        button.textContent = 'Show Completed';
+        homeworkList.innerHTML = '';
+        displayHomework();
+    }
+}
+
+document.getElementById('toggle-completed-button').addEventListener('click', toggleCompletedHomework);
