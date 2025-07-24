@@ -20,7 +20,9 @@ body {
     }
 
     .navbig {
-        font-size: 64px;
+        span {
+            font-size: 64px;
+        }
         background-color: #303030;
         color: white;
         padding: 10px;
@@ -28,6 +30,8 @@ body {
         transform: translateY(-15px);
         border: 10px solid #101010;
         transition-duration: 0.5s;
+        width: 64px;
+        height: 64px;
 
         &:hover {
             background-color: #404040;
@@ -36,19 +40,51 @@ body {
     }
 
     .navsmall {
-        font-size: 36px;
+        span {
+            font-size: 36px;
+        }
+        p {
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s, transform 0.5s;
+            margin: 0;
+            padding: 0;
+            transform: translateY(10px);
+        }
         padding: 10px;
         border-radius: 10px;
-        transition-duration: 0.3s;
+        transition-duration: 0.5s;
         &:hover {
             background-color: #333;
             transform: scale(1.05);
+            p {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         width: 54px;
         height: 44px;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        &.selected {
+             background-color: #222;
+            p {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        &.selected:hover {
+            background-color: #333;
+            transform: scale(1.05);
+            p {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     }
 }
 

@@ -20,7 +20,15 @@ function displayHomework() {
         for (let i = 0; i < homework.length; i++) {
             const homeworkItem = homework[i];
             const listItem = document.createElement('div');
-            listItem.innerHTML = `<button class="complete-btn material-symbols-rounded">check</button> <strong class="hw-name">${homeworkItem.name}</strong> <p class="hw-desc">${homeworkItem.description}</p> <p class="hw-dueDate">${formatDateTime(homeworkItem.dueDate)}</p> <p class="hw-subject">${homeworkItem.class}</p>`;
+            listItem.innerHTML = `
+            <button class="complete-btn material-symbols-rounded">check</button>
+            <div> 
+            <strong class="hw-name">${homeworkItem.name}</strong>
+            <p class="hw-subject">${homeworkItem.class}</p>
+            </div>
+            <p class="hw-desc">${homeworkItem.description}</p>
+            <p class="hw-dueDate">${formatDateTime(homeworkItem.dueDate)}</p>
+            `;
             homeworkList.appendChild(listItem);
         }
     }

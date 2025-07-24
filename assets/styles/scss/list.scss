@@ -6,7 +6,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #171717;
+    background-color: #101010;
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -19,9 +19,25 @@
         background-color: #202020;
         color: #eeeeee;
 
+        div {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            align-items: flex-start;
+            justify-content: flex-start;
+            border: 0;
+            padding: 0;
+            padding-top: 10px;
+            padding-left: 10px;
+
+            p,strong {
+                text-align: left;
+            }
+        }
+
         p,
-        strong {
-            width: calc((100% - 25px)/4);
+        strong, div {
+            width: calc((100% - 25px)/3);
             text-align: center;
         }
 

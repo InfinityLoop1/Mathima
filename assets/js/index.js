@@ -1,4 +1,5 @@
 function switchPage(page) {
+    document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
     document.getElementById('page-frame').src = `/pages/${page}.html`;
     document.getElementById('page-title').innerText = page.charAt(0).toUpperCase() + page.slice(1);
 }
@@ -56,17 +57,39 @@ document.getElementById('save-homework-button').addEventListener('click', addHom
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('settings-button').addEventListener('click', function (event) {
         switchPage("settings");
+        event.currentTarget.classList.add('selected');
     });
     document.getElementById('list-button').addEventListener('click', function (event) {
         switchPage("list");
+        event.currentTarget.classList.add('selected');
     });
     document.getElementById('add-button').addEventListener('click', function (event) {
         addEventPopup();
     });
     document.getElementById('calendar-button').addEventListener('click', function (event) {
         switchPage("calendar");
+        event.currentTarget.classList.add('selected');
     });
     document.getElementById('schedule-button').addEventListener('click', function (event) {
         switchPage("schedule");
+        event.currentTarget.classList.add('selected');
     });
+});
+
+if (window.innerWidth < window.innerHeight) {
+    document.getElementById('logo').style.display = 'none';
+    document.getElementById('page-title-container').style.display = 'none';
+} else {
+    document.getElementById('logo').style.display = 'block';
+    document.getElementById('page-title-container').style.display = 'block';
+}
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth < window.innerHeight) {
+        document.getElementById('logo').style.display = 'none';
+    document.getElementById('page-title-container').style.display = 'none';
+    } else {
+        document.getElementById('logo').style.display = 'block';
+    document.getElementById('page-title-container').style.display = 'block';
+    }
 });

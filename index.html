@@ -9,17 +9,24 @@
         <link rel="stylesheet" href="/assets/styles/css/index.css" />
         <script src="/assets/js/global.js" defer></script>
         <script src="/assets/js/index.js" defer></script>
+
+        <link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/assets/favicons/favicon.svg" />
+        <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="Mathima" />
+        <link rel="manifest" href="/assets/favicons/site.webmanifest" />
     </head>
     <body>
-        <iframe src="/pages/list.html" id="page-frame"></iframe>
+        <iframe title="Main Frame" src="/pages/list.html" id="page-frame"></iframe>
         <div id="navbar">
-            <div class="navsmall material-symbols-rounded" id="settings-button">settings</div>
-            <div class="navsmall material-symbols-rounded" id="list-button">sort</div>
-            <div class="navbig material-symbols-rounded" id="add-button">add</div>
-            <div class="navsmall material-symbols-rounded" id="calendar-button">calendar_today</div>
-            <div class="navsmall material-symbols-rounded" id="schedule-button">calendar_view_day</div>
+            <div class="navsmall" id="settings-button"><span class="material-symbols-rounded">settings</span><p>Settings</p></div>
+            <div class="navsmall selected" id="list-button"><span class="material-symbols-rounded">sort</span><p>List</p></div>
+            <div class="navbig" id="add-button"><span class="material-symbols-rounded">add</span></div>
+            <div class="navsmall" id="calendar-button"><span class="material-symbols-rounded">calendar_today</span><p>Calendar</p></div>
+            <div class="navsmall" id="schedule-button"><span class="material-symbols-rounded">calendar_view_day</span><p>Schedule</p></div>
         </div>
-        <img id="logo" src="/assets/images/logo-cropped.png" alt="Mathima Logo" />
+        <img id="logo" src="/assets/images/logo-4x1.png" alt="Mathima Logo" />
         <div id="page-title-container">
             <h1 id="page-title">List</h1>
         </div>
