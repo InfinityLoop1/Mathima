@@ -1,34 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-
-body {
-    padding: 0;
-    margin: 0;
-    font-family: 'Outfit', sans-serif;
-    background-color: #131313;
-    color: #eeeeee;
-}
-
-#header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 75vw;
-    height: 7.5vh;
-    text-align: center;
-    background-color: #202020;
-}
-
 #homework-container {
     display: flex;
     flex-direction: column;
     position: absolute;
-    bottom: 7.5vh;
+    top: 0;
     left: 0;
-    width: 75vw;
-    height: 85vh;
+    width: 100vw;
+    height: 100vh;
     background-color: #171717;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -68,7 +45,7 @@ body {
 }
 
 #homework-controls {
-    width: 75vw;
+    width: 100vw;
     height: 7.5vh;
     box-sizing: border-box;
     padding: 0 10px;
@@ -92,6 +69,7 @@ body {
         padding: 10px;
         cursor: pointer;
         transition-duration: 0.25s;
+        font-family: "Outfit", sans-serif;
     }
 
     #add-homework-button:hover {
@@ -125,99 +103,6 @@ body {
 }
 
 
-
-
-
-#popup-bg {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 999;
-    backdrop-filter: blur(2px);
-}
-
-#homework-popup {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 75vw;
-    height: 50vh;
-    background-color: #303030;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    padding: 20px;
-    justify-items: center;
-    align-items: center;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: space-between;
-    align-items: stretch;
-
-    input {
-        width: 100%;
-        box-sizing: border-box;
-        background-color: #171717;
-        color: #eeeeee;
-        border: 1px solid #555555;
-        border-radius: 5px;
-        padding: 10px;
-        height: 7.5vh;
-    }
-
-    div {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-
-        button {
-            box-sizing: border-box;
-            background-color: #171717;
-            color: #eeeeee;
-            border: 1px solid #555555;
-            border-radius: 5px;
-            padding: 10px;
-            cursor: pointer;
-            transition-duration: 0.25s;
-        }
-
-        #cancel-homework-button {
-            width: 30%;
-
-            &:hover {
-                background-color: #a03030;
-            }
-        }
-
-        #save-homework-button {
-            width: 70%;
-
-            &:hover {
-                background-color: #30a030;
-            }
-        }
-    }
-}
-
-#test-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 25vw;
-    height: 100vh;
-    background-color: #303030;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #505050;
-}
 
 
 

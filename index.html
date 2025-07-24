@@ -1,48 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework Tracker</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
-</head>
-<body>
-    <div id="header">
-        <h1>Homework Tracker</h1>
-    </div>
-    <div id="homework-container">
-
-    </div>
-    <div id="homework-controls">
-        <button id="add-homework-button">
-            Add Assignment
-        </button>
-        <select id="sort-homework-dropdown">
-            <option value="due-date">Sort by Due Date</option>
-            <option value="name">Sort by Name</option>
-            <option value="class">Sort by Subject</option>
-        </select>
-        <button id="clear-homework-button" onclick="clearHomework()">
-            Clear All Homework
-        </button>
-    </div>
-
-    <div id="test-container">
-        <small>This is a placeholder for a future feature.</small>
-    </div>
-    
-    <div id="popup-bg"></div>
-    <div id="homework-popup">
-        <input type="text" id="homework-name" placeholder="Name">
-        <input type="text" id="homework-description" placeholder="Description">
-        <input type="datetime-local" id="homework-due-date" placeholder="Due Date">
-        <input type="text" id="homework-class" placeholder="Subject">
-        <div>
-            <button id="cancel-homework-button">Cancel</button>
-            <button id="save-homework-button">Add</button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Mathima</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="/assets/styles/css/global.css" />
+        <link rel="stylesheet" href="/assets/styles/css/index.css" />
+        <script src="/assets/js/global.js" defer></script>
+        <script src="/assets/js/index.js" defer></script>
+    </head>
+    <body>
+        <iframe src="/pages/list.html" id="page-frame"></iframe>
+        <div id="navbar">
+            <div class="navsmall material-symbols-rounded" id="settings-button">settings</div>
+            <div class="navsmall material-symbols-rounded" id="list-button">sort</div>
+            <div class="navbig material-symbols-rounded" id="add-button">add</div>
+            <div class="navsmall material-symbols-rounded" id="calendar-button">calendar_today</div>
+            <div class="navsmall material-symbols-rounded" id="schedule-button">calendar_view_day</div>
         </div>
-        
-    </div>
+        <img id="logo" src="/assets/images/logo-cropped.png" alt="Mathima Logo" />
+        <div id="page-title-container">
+            <h1 id="page-title">List</h1>
+        </div>
 
-</body>
+        <div id="popup-bg"></div>
+        <div id="add-event-popup">
+            <input type="text" id="homework-name" placeholder="Name" />
+            <input type="text" id="homework-description" placeholder="Description" />
+            <input type="datetime-local" id="homework-due-date" placeholder="Due Date" />
+            <input type="text" id="homework-class" placeholder="Subject" />
+            <div>
+                <button id="cancel-homework-button">Cancel</button>
+                <button id="save-homework-button">Add</button>
+            </div>
+        </div>
+    </body>
+</html>
