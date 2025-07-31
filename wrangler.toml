@@ -1,0 +1,6 @@
+name = "mathima"
+compatibility_date = "2025-07-31"
+
+[site]
+bucket = "./"         # or "./public" or wherever index.html is
+entry-point = "."     # optional but safe to include
