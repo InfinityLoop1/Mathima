@@ -1,5 +1,7 @@
 name = "mathima"
+type = "javascript"  # required for static Workers
 compatibility_date = "2025-07-31"
 
-[assets]
-directory = "./public"
+[site]
+bucket = "./public"   # this is where your static files are
+entry-point = "."
