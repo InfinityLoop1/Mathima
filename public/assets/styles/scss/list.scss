@@ -123,24 +123,3 @@
 
 
 
-/* Custom gray scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #202020;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #555555;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #666666;
-}
-
-::-webkit-scrollbar-thumb:active {
-    background: #aaaaaa;
-}
