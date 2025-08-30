@@ -12,7 +12,8 @@ jobs:
         id: commits
         run: |
           COMMIT_TEXT=""
-          for commit in $(jq -c '.commits[]' < "${GITHUB_EVENT_PATH}"); do
+          # Read each commit safely
+          jq -c '.commits[]' < "${GITHUB_EVENT_PATH}" | while read commit; do
             MSG=$(echo "$commit" | jq -r '.message')
             URL=$(echo "$commit" | jq -r '.url')
             COMMIT_TEXT="${COMMIT_TEXT}- [$MSG]($URL)"
