@@ -1,40 +1,50 @@
-            - name: Actions Status Discord
+name: Discord Push Notifications
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:  
+        - name: Actions Status Discord
   # You may pin to the exact commit or the version.
   # uses: sarisia/actions-status-discord@11a0bfe3b50977e38aa2bd4a4ebd296415e83c19
-  uses: sarisia/actions-status-discord@v1.15.4
-  with:
+          uses: sarisia/actions-status-discord@v1.15.4
+          with:
     # Discord webhook endpoint. If not set, env.DISCORD_WEBHOOK will be used.
-    webhook: {{ secrets.DISCORD_WEBHOOK }}
+            webhook: ${{ secrets.DISCORD_WEBHOOK }}
     # Job status. Should be bound to job.status. Default to success.
-    status: # optional, default is ${{ job.status }}
+            status: # optional, default is ${{ job.status }}
     # Deprecated. Job name included in message title. Same as title input.
-    job: # optional
+            job: # optional
     # Content. Shown as an message outside of the embed. See [Mention to user/role](#mention-to-user-role)
-    content: # optional
+            content: # optional
     # String included in embed title. Overrides job input.
-    title: # optional, default is ${{ github.workflow }}
+            title: # optional, default is ${{ github.workflow }}
     # Description included in message
-    description: # optional
+            description: # optional
     # Image attached to the message
-    image: # optional
+            image: # optional
     # Overrides Discord embed color
-    color: # optional
+            color: # optional
     # URL to jump when the title is clicked
-    url: # optional
+            url: # optional
     # Overrides Discord webhook username
-    username: # optional
+            username: # optional
     # Overrides Discord webhook avatar url
-    avatar_url: # optional
+            avatar_url: # optional
     # This action won't make workflow failed by default.
-    nofail: # optional, default is true
+            nofail: # optional, default is true
     # Suppress GitHub context fields
-    nocontext: # optional, default is false
+            nocontext: # optional, default is false
     # Avoid appending job status to title
-    noprefix: # optional, default is false
+            noprefix: # optional, default is false
     # Suppress detailed embed fields
-    nodetail: # optional, default is false
+            nodetail: # optional, default is false
     # Avoid appending timestamp
-    notimestamp: # optional, default is false
+            notimestamp: # optional, default is false
     # Suppress error which raised when webhook is not set
-    ack_no_webhook: # optional, default is false
+            ack_no_webhook: # optional, default is false
           
