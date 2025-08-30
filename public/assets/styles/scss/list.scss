@@ -1,3 +1,5 @@
+@use "global" as *;
+
 #homework-container {
     display: flex;
     flex-direction: column;
@@ -5,57 +7,82 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
-    background-color: #101010;
+    height: 92.5vh;
+    background-color: $background-main;
     overflow-x: hidden;
     overflow-y: scroll;
 
-    div {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid #555555;
-        background-color: #202020;
-        color: #eeeeee;
-
+    #uncompleted-homework,
+    #completed-homework {
         div {
             display: flex;
-            flex-direction: column;
-            text-align: left;
-            align-items: flex-start;
-            justify-content: flex-start;
-            border: 0;
-            padding: 0;
-            padding-top: 10px;
-            padding-left: 10px;
+            flex-direction: row;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid $border-color;
+            background-color: $background-card;
+            color: $text-primary;
 
-            p,strong {
+            div {
+                display: flex;
+                flex-direction: column;
                 text-align: left;
+                align-items: flex-start;
+                justify-content: flex-start;
+                border: 0;
+                padding: 0;
+                padding-top: 10px;
+                padding-left: 10px;
+
+                p,
+                strong {
+                    text-align: left;
+                }
+            }
+
+            p,
+            strong,
+            div {
+                width: calc((100% - 25px) / 3);
+                text-align: center;
+            }
+
+            button {
+                width: 30px;
+                height: 30px;
+                border-radius: 10px;
+                background-color: $primary;
+                border: none;
+                transition-duration: 0.25s;
+                cursor: pointer;
+                color: white;
+                font-size: 1rem;
+                font-weight: 900;
+                margin: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    transform: scale(1.1);
+                    background-color: $primary-hover;
+                }
             }
         }
+    }
 
-        p,
-        strong, div {
-            width: calc((100% - 25px)/3);
-            text-align: center;
-        }
+    #completed-homework {
+        div {
+            background-color: $background-main;
+            color: $text-secondary;
 
-        button {
-            width: 30px;
-            height: 30px;
-            border-radius: 10px;
-            background-color: #444444;
-            border: none;
-            transition-duration: 0.25s;
-            cursor: pointer;
-            color: white;
-            font-size: 1rem;
-            font-weight: 900;
-            margin: 5px;
+            button {
+                background-color: $primary-hover;
+                color: $text-primary;
 
-            &:hover {
-                transform: scale(1.1);
+                &:hover {
+                    background-color: $primary;
+                }
             }
         }
     }
@@ -74,14 +101,14 @@
     bottom: 0;
     left: 0;
 
-    background-color: #202020;
+    background-color: $background-card;
 
     button {
         height: 5vh;
         width: 15vw;
-        background-color: #171717;
-        color: #eeeeee;
-        border: 1px solid #555555;
+        background-color: $background-main;
+        color: $text-primary;
+        border: 1px solid $border-color;
         border-radius: 5px;
         padding: 10px;
         cursor: pointer;
@@ -89,29 +116,21 @@
         font-family: "Outfit", sans-serif;
     }
 
-    #add-homework-button:hover {
-        background-color: #30a030;
-    }
-
-    #clear-homework-button:hover {
-        background-color: #a03030;
-    }
-
     #sort-homework-dropdown {
         width: 15vw;
         height: 5vh;
-        background-color: #171717;
-        color: #eeeeee;
-        border: 1px solid #555555;
+        background-color: $background-main;
+        color: $text-primary;
+        border: 1px solid $border-color;
         border-radius: 5px;
         padding: 10px;
         cursor: pointer;
         text-align: center;
 
         option {
-            background-color: #202020;
-            color: #eeeeee;
-            border: 1px solid #555555;
+            background-color: $background-card;
+            color: $text-primary;
+            border: 1px solid $border-color;
             border-radius: 5px;
             padding: 10px;
             cursor: pointer;
@@ -119,7 +138,17 @@
     }
 }
 
+.homework-item,
+.completed-item {
+    transition: all 0.3s ease;
+    opacity: 1;
+    max-height: 500px; /* set a reasonable max height for animation */
+    overflow: hidden;
+}
 
-
-
-
+.hidden-item {
+    opacity: 0;
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+}

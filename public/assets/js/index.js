@@ -25,8 +25,10 @@ function addHomework() {
     const homeworkDescription = document.getElementById('homework-description').value;
     const homeworkDueDate = document.getElementById('homework-due-date').value;
     const homeworkClass = document.getElementById('homework-class').value;
+    const homeworkId = Date.now() + Math.random();
 
     const newHomework = {
+        id: homeworkId,
         name: homeworkName,
         description: homeworkDescription,
         dueDate: homeworkDueDate,
@@ -38,7 +40,7 @@ function addHomework() {
     document.getElementById('popup-bg').style.display = 'none';
 
     localStorage.setItem('homework', JSON.stringify(homework));
-    document.getElementById('page-frame').contentWindow.displayHomework();
+    document.getElementById('page-frame').contentWindow.displayAssignedHomework();
 }
 
 

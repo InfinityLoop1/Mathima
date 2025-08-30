@@ -1,11 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+
+$background-main: #181A1B;
+$background-card: #222426;
+
+$primary: #D97A3A;
+$primary-hover: #E89150;
+
+$secondary-accent: #4D9AA6;
+$highlight-alt: #C3C9D2;
+
+$text-primary: #F5F5F5;
+$text-secondary: #A0A3A7;
+
+$border-color: #2E3133;
+
+$error-color: #D96464;
+$success-color: #5FBF84;
+
+
 body {
     padding: 0;
     margin: 0;
     font-family: 'Outfit', sans-serif;
-    background-color: #131313;
-    color: #eeeeee;
+    background-color: $background-main;
+    color: $text-primary;
 }
 
 
@@ -18,9 +37,9 @@ body {
 }
 
 button {
-  background-color: #171717;
-  color: #eeeeee;
-  border: 1px solid #555555;
+  background-color: $background-card;
+  color: $text-primary;
+  border: 1px solid $border-color;
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
@@ -32,18 +51,18 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-    background: #202020;
+    background: $background-card;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #555555;
+    background: $border-color;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #666666;
+    background: $primary-hover;
 }
 
 ::-webkit-scrollbar-thumb:active {
-    background: #aaaaaa;
+    background: $primary;
 }
