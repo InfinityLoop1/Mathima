@@ -22,7 +22,7 @@ jobs:
     # Content. Shown as an message outside of the embed. See [Mention to user/role](#mention-to-user-role)
             #content: # optional
     # String included in embed title. Overrides job input.
-            #title: # optional, default is ${{ github.workflow }}
+            title: "New push"
     # Description included in message
             #description: # optional
     # Image attached to the message
@@ -40,9 +40,9 @@ jobs:
     # Suppress GitHub context fields
             #nocontext: # optional, default is false
     # Avoid appending job status to title
-            #noprefix: # optional, default is false
+            noprefix: true
     # Suppress detailed embed fields
-            #nodetail: # optional, default is false
+            nodetail: true
     # Avoid appending timestamp
             #notimestamp: # optional, default is false
     # Suppress error which raised when webhook is not set
