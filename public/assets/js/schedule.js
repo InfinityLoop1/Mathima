@@ -173,6 +173,12 @@ document.getElementById('save-class-button').addEventListener('click', function 
     const classBlockDeleteButton = document.createElement('button');
     classBlockDeleteButton.classList.add('delete-class-button', 'material-symbols-rounded');
     classBlockDeleteButton.innerHTML = 'delete';
+    classBlockDeleteButton.onclick = function () {
+        // Remove from newSchedule.periods
+        newSchedule.periods = newSchedule.periods.filter(period => period.id !== newClass.id);
+        // Remove from preview
+        classBlock.remove();
+    };
 
     classBlockActions.appendChild(classBlockEditButton);
     classBlockActions.appendChild(classBlockDeleteButton);
