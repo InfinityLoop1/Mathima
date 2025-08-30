@@ -1,30 +1,40 @@
-name: Discord Push Notifications
-
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  notify:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send all commits to Discord
-        run: |
-          REPO="${{ github.repository }}"
-          BRANCH="${GITHUB_REF##*/}"   # dynamically get branch name
-          ACTOR="${{ github.actor }}"
-          COMMIT_TEXT=""
-
-          # Loop through all commits safely
-          jq -c '.commits[]' < "${GITHUB_EVENT_PATH}" | while read commit; do
-            COMMIT_MSG=$(echo "$commit" | jq -r '.message')
-            COMMIT_URL=$(echo "$commit" | jq -r '.url')
-            COMMIT_TEXT="${COMMIT_TEXT}- [$COMMIT_MSG]($COMMIT_URL)"
-          done
-
-          # Prepare payload with proper newlines
-          PAYLOAD=$(jq -n --arg content "🚀 $ACTOR pushed to **$BRANCH** in [$REPO](https://github.com/$REPO): 
-          $COMMIT_TEXT" '{content: $content}')
-
-          # Send to Discord
-          curl -H "Content-Type: application/json" -d "$PAYLOAD" ${{ secrets.DISCORD_WEBHOOK }}
+            - name: Actions Status Discord
+  # You may pin to the exact commit or the version.
+  # uses: sarisia/actions-status-discord@11a0bfe3b50977e38aa2bd4a4ebd296415e83c19
+  uses: sarisia/actions-status-discord@v1.15.4
+  with:
+    # Discord webhook endpoint. If not set, env.DISCORD_WEBHOOK will be used.
+    webhook: {{ secrets.DISCORD_WEBHOOK }}
+    # Job status. Should be bound to job.status. Default to success.
+    status: # optional, default is ${{ job.status }}
+    # Deprecated. Job name included in message title. Same as title input.
+    job: # optional
+    # Content. Shown as an message outside of the embed. See [Mention to user/role](#mention-to-user-role)
+    content: # optional
+    # String included in embed title. Overrides job input.
+    title: # optional, default is ${{ github.workflow }}
+    # Description included in message
+    description: # optional
+    # Image attached to the message
+    image: # optional
+    # Overrides Discord embed color
+    color: # optional
+    # URL to jump when the title is clicked
+    url: # optional
+    # Overrides Discord webhook username
+    username: # optional
+    # Overrides Discord webhook avatar url
+    avatar_url: # optional
+    # This action won't make workflow failed by default.
+    nofail: # optional, default is true
+    # Suppress GitHub context fields
+    nocontext: # optional, default is false
+    # Avoid appending job status to title
+    noprefix: # optional, default is false
+    # Suppress detailed embed fields
+    nodetail: # optional, default is false
+    # Avoid appending timestamp
+    notimestamp: # optional, default is false
+    # Suppress error which raised when webhook is not set
+    ack_no_webhook: # optional, default is false
+          
