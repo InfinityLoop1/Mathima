@@ -40,3 +40,4 @@ jobs:
             ${{ steps.commits.outputs.commit_text }}
           noprefix: true
           nocontext: true
+          content: "<@&1411175159481634936>"
