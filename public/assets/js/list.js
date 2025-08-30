@@ -21,7 +21,7 @@ function displayAssignedHomework() {
     }
 
     const container = document.getElementById('uncompleted-homework');
-    // Store previous IDs to detect new items
+    // store previous IDs to detect new items
     const prevItems = Array.from(container.querySelectorAll('.homework-item'));
     const prevIds = prevItems.map(div => div.dataset.id);
 
@@ -29,12 +29,12 @@ function displayAssignedHomework() {
 
     if (homework.length === 0) {
         const msgDiv = document.createElement('div');
-        msgDiv.innerHTML = '<h1 style="text-align: center;">No homework assigned.</h1>';
+        msgDiv.innerHTML = `<h1>No assignments due. You're all caught up!</h1>`;
         msgDiv.style.opacity = '0';
         msgDiv.style.height = '60px';
         container.appendChild(msgDiv);
         setTimeout(() => {
-            msgDiv.style.transition = 'opacity 0.5s';
+            msgDiv.style.transition = 'opacity 0.2s';
             msgDiv.style.opacity = '1';
         }, 10);
         return;
@@ -56,17 +56,18 @@ function displayAssignedHomework() {
         `;
 
         if (new Date(hw.dueDate) < new Date()) {
-            div.getElementsByClassName('hw-dueDate')[0].style.color = '#ffcccc';
+            div.getElementsByClassName('hw-dueDate')[0].style.color = '#ffbbbb';
+            div.getElementsByClassName('hw-dueDate')[0].style.fontWeight = 'bold';
         }
 
-        // Fade in if it's a new item
+        // fade in if it's a new item
         if (!prevIds.includes(String(hw.id))) {
             div.style.opacity = '0';
-            div.style.transition = 'opacity 0.5s';
+            div.style.transition = 'opacity 0.2s';
             container.appendChild(div);
             setTimeout(() => {
                 div.style.opacity = '1';
-            }, 500);
+            }, 200);
         } else {
             container.appendChild(div);
         }
@@ -95,12 +96,12 @@ function displayCompletedHomework() {
     // Fade out if toggled off
     if (showCompleted === false && prevItems.length) {
         prevItems.forEach(div => {
-            div.style.transition = 'opacity 0.5s';
+            div.style.transition = 'opacity 0.2s';
             div.style.opacity = '0';
         });
         setTimeout(() => {
             container.innerHTML = '';
-        }, 500);
+        }, 200);
         return;
     }
 
@@ -110,16 +111,15 @@ function displayCompletedHomework() {
         if (showCompleted == true) {
             const completedContainer = document.getElementById('completed-homework');
             const msgDiv = document.createElement('div');
-            msgDiv.innerHTML = '<h1 style="text-align: center;">No homework completed.</h1>';
+            msgDiv.innerHTML = `<h1>No assignments completed.</h1>`;
             msgDiv.style.opacity = '0';
             msgDiv.style.height = '60px';
             completedContainer.innerHTML = '';
             completedContainer.appendChild(msgDiv);
             setTimeout(() => {
-                msgDiv.style.transition = 'opacity 0.5s';
+                msgDiv.style.transition = 'opacity 0.2s';
                 msgDiv.style.opacity = '1';
             }, 10);
-
         }
         return;
     }
@@ -146,16 +146,16 @@ function displayCompletedHomework() {
             div.style.opacity = '0';
             container.appendChild(div);
             setTimeout(() => {
-                div.style.transition = 'opacity 0.5s';
+                div.style.transition = 'opacity 0.2s';
                 div.style.opacity = '1';
             }, 10);
         } else if (!prevIds.includes(String(hw.id)) && showCompleted == true) {
             div.style.opacity = '0';
             container.appendChild(div);
             setTimeout(() => {
-                div.style.transition = 'opacity 0.5s';
+                div.style.transition = 'opacity 0.2s';
                 div.style.opacity = '1';
-            }, 500);
+            }, 200);
         } else {
             container.appendChild(div);
         }
@@ -262,7 +262,13 @@ document.getElementById('homework-container').addEventListener('click', event =>
             finishedHomework.splice(idx, 1);
             localStorage.setItem('homework', JSON.stringify(homework));
             localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));
-            displayCompletedHomework();
+            item.style.transition = 'opacity 0.2s';
+            item.style.opacity = '0';
+            setTimeout(() => {
+                item.remove();
+                displayCompletedHomework();
+            }, 200);
+            
         }
         return;
     }

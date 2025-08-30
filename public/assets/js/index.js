@@ -8,8 +8,6 @@ function addHomeworkPopup() {
     const popup = document.getElementById('add-event-popup');
     popup.style.display = 'flex';
     document.getElementById('popup-bg').style.display = 'block';
-    //i love copilot
-    
 }
 
 function creatorPopup() {
@@ -73,8 +71,6 @@ document.getElementById('save-creator-button').addEventListener('click', () => {
     }
 });
 
-//document.getElementById('save-homework-button').addEventListener('click', addHomework);
-
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('settings-button').addEventListener('click', function (event) {
         switchPage("settings");
@@ -119,18 +115,13 @@ window.addEventListener('resize', () => {
 document.querySelectorAll('input[type="radio"][name="creator-radio"]').forEach(radio => {
     radio.addEventListener('change', function () {
         const popup = document.getElementById('creator-popup');
-        
-        // Add transitioning class for the slide down effect
         popup.classList.add('transitioning');
         
         setTimeout(() => {
-            // Change the content
             document.getElementsByClassName('shown-creator-container')[0].classList.remove('shown-creator-container');
             document.getElementById('add-' + this.value + '-container').classList.add('shown-creator-container');
-            
-            // Remove transitioning class to slide back up
             popup.classList.remove('transitioning');
-        }, 500); // Longer timeout to match the 0.8s transition (halfway point)
+        }, 200);
     });
 });
 
