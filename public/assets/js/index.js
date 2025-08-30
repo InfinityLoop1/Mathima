@@ -4,7 +4,7 @@ function switchPage(page) {
     document.getElementById('page-title').innerText = page.charAt(0).toUpperCase() + page.slice(1);
 }
 
-function addEventPopup() {
+function addHomeworkPopup() {
     const popup = document.getElementById('add-event-popup');
     popup.style.display = 'flex';
     document.getElementById('popup-bg').style.display = 'block';
@@ -17,6 +17,11 @@ function addEventPopup() {
         const formattedDateTime = localDateTime.toISOString().slice(0, 16);
         dueDateInput.value = formattedDateTime;
     }
+}
+
+function creatorPopup() {
+    document.getElementById('creator-popup').style.display = 'flex';
+    document.getElementById('popup-bg').style.display = 'block';
 }
 
 function addHomework() {
@@ -44,17 +49,17 @@ function addHomework() {
 }
 
 
-document.getElementById('cancel-homework-button').addEventListener('click', () => {
+document.getElementById('cancel-creator-button').addEventListener('click', () => {
     document.getElementById('add-event-popup').style.display = 'none';
     document.getElementById('popup-bg').style.display = 'none';
 });
 
 document.getElementById('popup-bg').addEventListener('click', () => {
-    document.getElementById('add-event-popup').style.display = 'none';
+    document.getElementById('creator-popup').style.display = 'none';
     document.getElementById('popup-bg').style.display = 'none';
 });
 
-document.getElementById('save-homework-button').addEventListener('click', addHomework);
+//document.getElementById('save-homework-button').addEventListener('click', addHomework);
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('settings-button').addEventListener('click', function (event) {
@@ -66,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         event.currentTarget.classList.add('selected');
     });
     document.getElementById('add-button').addEventListener('click', function (event) {
-        addEventPopup();
+        creatorPopup();
     });
     document.getElementById('calendar-button').addEventListener('click', function (event) {
         switchPage("calendar");
