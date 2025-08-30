@@ -22,7 +22,8 @@ jobs:
           done
 
           # Prepare payload with proper newlines
-          PAYLOAD=$(jq -n --arg content "$ACTOR pushed to **main** in [$REPO](https://github.com/$REPO):\n$COMMIT_TEXT" '{content: $content}')
+          PAYLOAD=$(jq -n --arg content "$ACTOR pushed to **main** in [$REPO](https://github.com/$REPO):
+          $COMMIT_TEXT" '{content: $content}')
 
           # Send to Discord
           curl -H "Content-Type: application/json" -d "$PAYLOAD" ${{ secrets.DISCORD_WEBHOOK }}
