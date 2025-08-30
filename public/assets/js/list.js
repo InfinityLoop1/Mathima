@@ -32,6 +32,9 @@ function displayAssignedHomework() {
         const div = document.createElement('div');
         div.classList.add('homework-item');
         div.dataset.id = hw.id;
+
+        
+
         div.innerHTML = `
             <button class="complete-btn material-symbols-rounded">check</button>
             <div>
@@ -41,6 +44,10 @@ function displayAssignedHomework() {
             <p class="hw-desc">${hw.description}</p>
             <p class="hw-dueDate">${formatDateTime(hw.dueDate)}</p>
         `;
+
+        if (new Date(hw.dueDate) < new Date()) {
+            div.getElementsByClassName('hw-dueDate')[0].style.color = '#ffcccc';
+        }
         container.appendChild(div);
     });
 }
@@ -131,7 +138,6 @@ document.getElementById('homework-container').addEventListener('click', event =>
             finishedHomework.push(completed);
             localStorage.setItem('homework', JSON.stringify(homework));
             localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));
-            setCompletedHomework(true);
             displayAssignedHomework();
             displayCompletedHomework();
         }
@@ -150,7 +156,6 @@ document.getElementById('homework-container').addEventListener('click', event =>
             homework.push(restored);
             localStorage.setItem('homework', JSON.stringify(homework));
             localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));
-            document.getElementById('toggle-completed-button').textContent = 'Show Completed';
             displayAssignedHomework();
             displayCompletedHomework();
         }
