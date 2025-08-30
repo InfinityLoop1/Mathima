@@ -3,23 +3,6 @@ body {
     overflow-x: hidden;
 }
 
-#add-schedule-button {
-    position: sticky;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    background-color: #202020;
-    font-family: "Outfit", sans-serif;
-    transition-duration: 0.5s;
-
-    &:hover {
-        background-color: #303030;
-        font-size: 150%;
-        width: 75vw;
-        left: 12.5vw;
-    }
-}
-
 #schedule-container {
     padding: 10px;
     width: 100vw;

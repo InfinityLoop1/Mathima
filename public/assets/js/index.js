@@ -104,8 +104,17 @@ window.addEventListener('resize', () => {
 
 document.querySelectorAll('input[type="radio"][name="creator-radio"]').forEach(radio => {
     radio.addEventListener('change', function () {
-        document.getElementsByClassName('shown-creator-container')[0].classList.remove('shown-creator-container');
+        document.getElementById('creator-popup').style.opacity = '0';
+        document.getElementById('creator-popup').style.transform = 'translate(-50%, calc(-50% + 10px))';
+        
+        setTimeout(() => {
+            document.getElementsByClassName('shown-creator-container')[0].classList.remove('shown-creator-container');
         document.getElementById('add-' + this.value + '-container').classList.add('shown-creator-container');
+            document.getElementById('creator-popup').style.opacity = '1';
+        document.getElementById('creator-popup').style.transform = 'translate(-50%, -50%)';
+        }, 500);
+
+        
     });
 });
 
