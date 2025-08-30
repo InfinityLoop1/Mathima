@@ -120,7 +120,8 @@
 }
 
 #popup-bg {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
     position: fixed;
     top: 0;
     left: 0;
@@ -129,14 +130,23 @@
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 999;
     backdrop-filter: blur(2px);
+    transition: opacity 0.5s ease, visibility 0s 0.5s, backdrop-filter 0.5s ease;
+}
+
+#popup-bg.show {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0s 0s, backdrop-filter 0.5s ease;
 }
 
 #creator-popup {
-    display: none;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, calc(-50% + 20px)) scale(0.9);
     width: 75vw;
     background-color: $background-card;
     border-radius: 10px;
@@ -145,8 +155,22 @@
     padding: 20px;
     flex-direction: column;
     gap: 10px;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+#creator-popup.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    display: flex;
+}
+
+#creator-popup.transitioning {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 10px)) scale(0.98);
+}
+
+#creator-popup {
     #creator-popup-buttons {
         display: flex;
         flex-direction: row;
@@ -229,9 +253,9 @@
         font-family: "Outfit", sans-serif;
         width: 100%;
         box-sizing: border-box;
-        background-color: #171717;
-        color: #eeeeee;
-        border: 1px solid #555555;
+        background-color: $background-main;
+        color: $text-primary;
+        border: 1px solid $border-color;
         border-radius: 5px;
         padding: 10px;
         margin-bottom: 10px;
@@ -242,12 +266,11 @@
         box-sizing: border-box;
         width: 100%;
         padding: 10px;
-        background-color: $background-main;
 
         #schedule-preview {
             width: 100%;
             border-radius: 10px;
-            background-color: #303030;
+            background-color: $background-main;
 
             .class-block {
                 display: flex;
@@ -255,10 +278,10 @@
                 align-items: center;
                 justify-content: space-between;
                 padding: 10px;
-                border: 1px solid #444444;
+                border: 1px solid $border-color;
                 border-radius: 5px;
                 margin-bottom: 10px;
-                background-color: #383838;
+                background-color: $background-card;
 
                 .class-block-info {
                     h3 {
@@ -285,6 +308,7 @@
 
         #add-class-button {
             width: 100%;
+            background-color: $background-main;
         }
     }
 }
@@ -312,9 +336,9 @@
                 max-width: 100% !important;
                 min-width: 100% !important;
                 box-sizing: border-box;
-                background-color: #171717;
-                color: #eeeeee;
-                border: 1px solid #555555;
+                background-color: $background-main;
+                color: $text-primary;
+                border: 1px solid $border-color;
                 border-radius: 5px;
                 padding: 10px;
                 margin-bottom: 10px;
@@ -332,10 +356,10 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border: 1px solid #555555;
+                border: 1px solid $border-color;
                 border-radius: 5px;
                 padding: 10px;
-                background-color: #282828;
+                background-color: $background-main;
                 font-size: 250%;
             }
         }
@@ -404,6 +428,7 @@
     font-size: 14px;
     gap: 10px;
     transition-duration: 0.5s;
+    border: 1px solid $border-color;
 }
 
 .radio-inputs .radio {
@@ -421,7 +446,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 0.5rem;
-    border: none;
     padding: 0.5rem 0;
     color: $text-primary;
     transition: all 0.5s ease-in-out;

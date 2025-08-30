@@ -9,6 +9,13 @@ function addHomeworkPopup() {
     popup.style.display = 'flex';
     document.getElementById('popup-bg').style.display = 'block';
     //i love copilot
+    
+}
+
+function creatorPopup() {
+    document.getElementById('creator-popup').classList.add('show');
+    document.getElementById('popup-bg').classList.add('show');
+
     const dueDateInput = document.getElementById("homework-due-date");
     if (dueDateInput) {
         const now = new Date();
@@ -17,11 +24,6 @@ function addHomeworkPopup() {
         const formattedDateTime = localDateTime.toISOString().slice(0, 16);
         dueDateInput.value = formattedDateTime;
     }
-}
-
-function creatorPopup() {
-    document.getElementById('creator-popup').style.display = 'flex';
-    document.getElementById('popup-bg').style.display = 'block';
 }
 
 function addHomework() {
@@ -41,8 +43,8 @@ function addHomework() {
     };
     homework.push(newHomework);
 
-    document.getElementById('add-event-popup').style.display = 'none';
-    document.getElementById('popup-bg').style.display = 'none';
+    document.getElementById('popup-bg').classList.remove('show');
+    document.getElementById('creator-popup').classList.remove('show');
 
     localStorage.setItem('homework', JSON.stringify(homework));
     document.getElementById('page-frame').contentWindow.displayAssignedHomework();
@@ -50,13 +52,25 @@ function addHomework() {
 
 
 document.getElementById('cancel-creator-button').addEventListener('click', () => {
-    document.getElementById('creator-popup').style.display = 'none';
-    document.getElementById('popup-bg').style.display = 'none';
+    document.getElementById('popup-bg').classList.remove('show');
+    document.getElementById('creator-popup').classList.remove('show');
 });
 
 document.getElementById('popup-bg').addEventListener('click', () => {
-    document.getElementById('creator-popup').style.display = 'none';
-    document.getElementById('popup-bg').style.display = 'none';
+    document.getElementById('popup-bg').classList.remove('show');
+    document.getElementById('creator-popup').classList.remove('show');
+});
+
+document.getElementById('save-creator-button').addEventListener('click', () => {
+    document.getElementById('popup-bg').classList.remove('show');
+    document.getElementById('creator-popup').classList.remove('show');
+
+    const selectedRadio = document.querySelector('input[type="radio"][name="creator-radio"]:checked');
+    if (selectedRadio) {
+        if (selectedRadio.value === 'homework') {
+            addHomework();
+        }
+    }
 });
 
 //document.getElementById('save-homework-button').addEventListener('click', addHomework);
@@ -104,17 +118,19 @@ window.addEventListener('resize', () => {
 
 document.querySelectorAll('input[type="radio"][name="creator-radio"]').forEach(radio => {
     radio.addEventListener('change', function () {
-        document.getElementById('creator-popup').style.opacity = '0';
-        document.getElementById('creator-popup').style.transform = 'translate(-50%, calc(-50% + 10px))';
+        const popup = document.getElementById('creator-popup');
+        
+        // Add transitioning class for the slide down effect
+        popup.classList.add('transitioning');
         
         setTimeout(() => {
+            // Change the content
             document.getElementsByClassName('shown-creator-container')[0].classList.remove('shown-creator-container');
-        document.getElementById('add-' + this.value + '-container').classList.add('shown-creator-container');
-            document.getElementById('creator-popup').style.opacity = '1';
-        document.getElementById('creator-popup').style.transform = 'translate(-50%, -50%)';
-        }, 500);
-
-        
+            document.getElementById('add-' + this.value + '-container').classList.add('shown-creator-container');
+            
+            // Remove transitioning class to slide back up
+            popup.classList.remove('transitioning');
+        }, 500); // Longer timeout to match the 0.8s transition (halfway point)
     });
 });
 

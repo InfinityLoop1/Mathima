@@ -21,10 +21,22 @@ function displayAssignedHomework() {
     }
 
     const container = document.getElementById('uncompleted-homework');
+    // Store previous IDs to detect new items
+    const prevItems = Array.from(container.querySelectorAll('.homework-item'));
+    const prevIds = prevItems.map(div => div.dataset.id);
+
     container.innerHTML = '';
 
     if (homework.length === 0) {
-        container.innerHTML = '<h1 style="text-align: center;">No homework assigned.</h1>';
+        const msgDiv = document.createElement('div');
+        msgDiv.innerHTML = '<h1 style="text-align: center;">No homework assigned.</h1>';
+        msgDiv.style.opacity = '0';
+        msgDiv.style.height = '60px';
+        container.appendChild(msgDiv);
+        setTimeout(() => {
+            msgDiv.style.transition = 'opacity 0.5s';
+            msgDiv.style.opacity = '1';
+        }, 10);
         return;
     }
 
@@ -32,8 +44,6 @@ function displayAssignedHomework() {
         const div = document.createElement('div');
         div.classList.add('homework-item');
         div.dataset.id = hw.id;
-
-        
 
         div.innerHTML = `
             <button class="complete-btn material-symbols-rounded">check</button>
@@ -48,7 +58,18 @@ function displayAssignedHomework() {
         if (new Date(hw.dueDate) < new Date()) {
             div.getElementsByClassName('hw-dueDate')[0].style.color = '#ffcccc';
         }
-        container.appendChild(div);
+
+        // Fade in if it's a new item
+        if (!prevIds.includes(String(hw.id))) {
+            div.style.opacity = '0';
+            div.style.transition = 'opacity 0.5s';
+            container.appendChild(div);
+            setTimeout(() => {
+                div.style.opacity = '1';
+            }, 500);
+        } else {
+            container.appendChild(div);
+        }
     });
 }
 
@@ -66,11 +87,39 @@ function displayCompletedHomework() {
     }
 
     const container = document.getElementById('completed-homework');
+    // Store previous IDs to detect new items
+    const prevItems = Array.from(container.querySelectorAll('.completed-item'));
+    const prevIds = prevItems.map(div => div.dataset.id);
+    const wasHidden = prevItems.length && prevItems[0].classList.contains('hidden-item');
+
+    // Fade out if toggled off
+    if (showCompleted === false && prevItems.length) {
+        prevItems.forEach(div => {
+            div.style.transition = 'opacity 0.5s';
+            div.style.opacity = '0';
+        });
+        setTimeout(() => {
+            container.innerHTML = '';
+        }, 500);
+        return;
+    }
+
     container.innerHTML = '';
 
     if (finishedHomework.length === 0) {
         if (showCompleted == true) {
-            document.getElementById('completed-homework').innerHTML = '<h1 style="text-align: center;">No homework completed.</h1>';
+            const completedContainer = document.getElementById('completed-homework');
+            const msgDiv = document.createElement('div');
+            msgDiv.innerHTML = '<h1 style="text-align: center;">No homework completed.</h1>';
+            msgDiv.style.opacity = '0';
+            msgDiv.style.height = '60px';
+            completedContainer.innerHTML = '';
+            completedContainer.appendChild(msgDiv);
+            setTimeout(() => {
+                msgDiv.style.transition = 'opacity 0.5s';
+                msgDiv.style.opacity = '1';
+            }, 10);
+
         }
         return;
     }
@@ -84,7 +133,7 @@ function displayCompletedHomework() {
         }
         div.innerHTML = `
             <button class="restore-btn material-symbols-rounded">refresh</button>
-                <button class="delete-btn material-symbols-rounded">delete</button>
+            <button class="delete-btn material-symbols-rounded">delete</button>
             <div>
                 <strong class="hw-name">${hw.name}</strong>
                 <p class="hw-subject">${hw.class}</p>
@@ -92,7 +141,24 @@ function displayCompletedHomework() {
             <p class="hw-desc">${hw.description}</p>
             <p class="hw-dueDate">${formatDateTime(hw.dueDate)}</p>
         `;
-        container.appendChild(div);
+        // Fade in if toggled on
+        if (showCompleted == true && wasHidden) {
+            div.style.opacity = '0';
+            container.appendChild(div);
+            setTimeout(() => {
+                div.style.transition = 'opacity 0.5s';
+                div.style.opacity = '1';
+            }, 10);
+        } else if (!prevIds.includes(String(hw.id)) && showCompleted == true) {
+            div.style.opacity = '0';
+            container.appendChild(div);
+            setTimeout(() => {
+                div.style.transition = 'opacity 0.5s';
+                div.style.opacity = '1';
+            }, 500);
+        } else {
+            container.appendChild(div);
+        }
     });
 }
 
@@ -138,8 +204,20 @@ document.getElementById('homework-container').addEventListener('click', event =>
             finishedHomework.push(completed);
             localStorage.setItem('homework', JSON.stringify(homework));
             localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));
-            displayAssignedHomework();
-            displayCompletedHomework();
+            item.style.opacity = '0';
+            for (let i = idx; i < homework.length; i++) {
+                const itemDiv = document.querySelector(`.homework-item[data-id="${homework[i].id}"]`);
+                if (itemDiv) {
+                    itemDiv.style.transform = 'translateY(-60px)';
+                    setTimeout(() => {
+                        itemDiv.style.transform = '';
+                    }, 500);
+                }
+            }
+            setTimeout(() => {
+                displayAssignedHomework();
+                displayCompletedHomework();
+            }, 300);
         }
         return;
     }
@@ -156,8 +234,20 @@ document.getElementById('homework-container').addEventListener('click', event =>
             homework.push(restored);
             localStorage.setItem('homework', JSON.stringify(homework));
             localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));
-            displayAssignedHomework();
-            displayCompletedHomework();
+            item.style.opacity = '0';
+            for (let i = idx; i < finishedHomework.length; i++) {
+                const itemDiv = document.querySelector(`.completed-item[data-id="${finishedHomework[i].id}"]`);
+                if (itemDiv) {
+                    itemDiv.style.transform = 'translateY(-60px)';
+                    setTimeout(() => {
+                        itemDiv.style.transform = '';
+                    }, 500);
+                }
+            }
+            setTimeout(() => {
+                displayAssignedHomework();
+                displayCompletedHomework();
+            }, 500);
         }
         return;
     }
