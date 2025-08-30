@@ -8,18 +8,21 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Send commit message to Discord
+      - name: Send all commits to Discord
         run: |
-          COMMIT_MSG="${{ github.event.head_commit.message }}"
-          COMMIT_URL="${{ github.event.head_commit.url }}"
           REPO="${{ github.repository }}"
           ACTOR="${{ github.actor }}"
+          COMMIT_TEXT=""
 
-          CONTENT="🚀 $ACTOR pushed to **main** in [$REPO]($COMMIT_URL):
-          - $COMMIT_MSG"
+          # Loop through all commits in the push
+          for commit in $(jq -c '.commits[]' < "${GITHUB_EVENT_PATH}"); do
+            COMMIT_MSG=$(echo "$commit" | jq -r '.message')
+            COMMIT_URL=$(echo "$commit" | jq -r '.url')
+            COMMIT_TEXT="$COMMIT_TEXT- [$COMMIT_MSG]($COMMIT_URL)\n"
+          done
 
-          PAYLOAD=$(jq -n --arg content "$CONTENT" '{content: $content}')
+          # Prepare payload with proper newlines
+          PAYLOAD=$(jq -n --arg content "$ACTOR pushed to **main** in [$REPO](https://github.com/$REPO):\n$COMMIT_TEXT" '{content: $content}')
 
-          curl -H "Content-Type: application/json" \
-           -d "$PAYLOAD" \
-           ${{ secrets.DISCORD_WEBHOOK }}
+          # Send to Discord
+          curl -H "Content-Type: application/json" -d "$PAYLOAD" ${{ secrets.DISCORD_WEBHOOK }}
