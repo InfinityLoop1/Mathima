@@ -50,7 +50,7 @@ function addHomework() {
 
 
 document.getElementById('cancel-creator-button').addEventListener('click', () => {
-    document.getElementById('add-event-popup').style.display = 'none';
+    document.getElementById('creator-popup').style.display = 'none';
     document.getElementById('popup-bg').style.display = 'none';
 });
 
@@ -100,3 +100,21 @@ window.addEventListener('resize', () => {
     document.getElementById('page-title-container').style.display = 'block';
     }
 });
+
+
+document.querySelectorAll('input[type="radio"][name="creator-radio"]').forEach(radio => {
+    radio.addEventListener('change', function () {
+        document.getElementsByClassName('shown-creator-container')[0].classList.remove('shown-creator-container');
+        document.getElementById('add-' + this.value + '-container').classList.add('shown-creator-container');
+    });
+});
+
+const pickerOptions = {
+    onEmojiSelect: emoji => {
+        document.getElementById('class-emoji').innerHTML = emoji.native;
+    }
+}
+
+const picker = new EmojiMart.Picker(pickerOptions);
+picker.id = 'class-emoji-picker';
+document.getElementById('class-emoji-picker').appendChild(picker);

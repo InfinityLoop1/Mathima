@@ -191,12 +191,3 @@ document.getElementById('save-class-button').addEventListener('click', function 
     closePopup('class-builder-modal', 'class-popup-bg');
 });
 
-const pickerOptions = {
-    onEmojiSelect: emoji => {
-        document.getElementById('class-emoji').innerHTML = emoji.native;
-    }
-}
-
-const picker = new EmojiMart.Picker(pickerOptions);
-picker.id = 'class-emoji-picker';
-document.getElementById('class-emoji-picker').appendChild(picker);

@@ -1,4 +1,4 @@
-@use 'global' as *;
+@use "global" as *;
 
 #navbar {
     position: absolute;
@@ -68,7 +68,7 @@
         justify-content: center;
 
         &.selected {
-             background-color: $primary;
+            background-color: $primary;
             p {
                 opacity: 1;
                 transform: translateY(0);
@@ -185,17 +185,24 @@
     }
 }
 
-#add-homework-container {
-    display: flex;
+.creator-container {
+    display: none;
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
+}
+
+.shown-creator-container {
+    display: flex;
+}
+
+#add-homework-container {
     justify-items: center;
     align-items: center;
     flex-direction: column;
     flex-grow: 1;
     justify-content: space-between;
     align-items: stretch;
-    box-sizing: border-box;
 
     input {
         width: 100%;
@@ -206,17 +213,12 @@
         border-radius: 5px;
         padding: 10px;
         height: 7.5vh;
-        font-family: 'Outfit', sans-serif;
+        font-family: "Outfit", sans-serif;
     }
-
-
 }
 
-#schedule-builder-container {
-    display: none;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
+#add-schedule-container {
+    flex-direction: column;
 
     input,
     textarea {
@@ -236,7 +238,7 @@
         box-sizing: border-box;
         width: 100%;
         padding: 10px;
-        background-color: #282828;
+        background-color: $background-main;
 
         #schedule-preview {
             width: 100%;
@@ -253,7 +255,6 @@
                 border-radius: 5px;
                 margin-bottom: 10px;
                 background-color: #383838;
-                
 
                 .class-block-info {
                     h3 {
@@ -284,46 +285,54 @@
     }
 }
 
-#class-builder-modal {
-    display: none;
-    position: absolute;
-    top: 10vh;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 75vw;
-    min-height: 50vh;
-    background-color: #303030;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    z-index: 1002;
-    padding: 20px;
+#add-class-container {
     flex-direction: column;
     gap: 10px;
 
-    input,
-    textarea {
-        font-family: "Outfit", sans-serif;
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 100% !important;
-        box-sizing: border-box;
-        background-color: #171717;
-        color: #eeeeee;
-        border: 1px solid #555555;
-        border-radius: 5px;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    #class-emoji {
+    #class-builder {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #555555;
-        border-radius: 5px;
-        padding: 10px;
-        background-color: #282828;
-        font-size: 500%;
+        flex-direction: row;
+
+        #class-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 100%;
+
+            input,
+            textarea {
+                font-family: "Outfit", sans-serif;
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 100% !important;
+                box-sizing: border-box;
+                background-color: #171717;
+                color: #eeeeee;
+                border: 1px solid #555555;
+                border-radius: 5px;
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+        }
+
+        #class-emoji-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            #class-emoji {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #555555;
+                border-radius: 5px;
+                padding: 10px;
+                background-color: #282828;
+                font-size: 250%;
+            }
+        }
     }
 }
 
@@ -380,39 +389,38 @@
 }
 
 .radio-inputs {
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 0.5rem;
-  background-color: $background-main;
-  box-sizing: border-box;
-  padding: 0.25rem;
-  font-size: 14px;
-  gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: $background-main;
+    box-sizing: border-box;
+    padding: 0.25rem;
+    font-size: 14px;
+    gap: 10px;
 }
 
 .radio-inputs .radio {
-  flex: 1 1 auto;
-  text-align: center;
+    flex: 1 1 auto;
+    text-align: center;
 }
 
 .radio-inputs .radio input {
-  display: none;
+    display: none;
 }
 
 .radio-inputs .radio .name {
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  border: none;
-  padding: .5rem 0;
-  color: $text-primary;
-  transition: all .15s ease-in-out;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem 0;
+    color: $text-primary;
+    transition: all 0.15s ease-in-out;
 }
 
 .radio-inputs .radio input:checked + .name {
-  background-color: $primary;
-  font-weight: 600;
+    background-color: $primary;
+    font-weight: 600;
 }
-
