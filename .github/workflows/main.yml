@@ -11,18 +11,19 @@ jobs:
       - name: Send all commits to Discord
         run: |
           REPO="${{ github.repository }}"
+          BRANCH="${GITHUB_REF##*/}"   # dynamically get branch name
           ACTOR="${{ github.actor }}"
           COMMIT_TEXT=""
 
-          # Loop through all commits in the push
-          for commit in $(jq -c '.commits[]' < "${GITHUB_EVENT_PATH}"); do
+          # Loop through all commits safely
+          jq -c '.commits[]' < "${GITHUB_EVENT_PATH}" | while read commit; do
             COMMIT_MSG=$(echo "$commit" | jq -r '.message')
             COMMIT_URL=$(echo "$commit" | jq -r '.url')
-            COMMIT_TEXT="$COMMIT_TEXT- [$COMMIT_MSG]($COMMIT_URL)\n"
+            COMMIT_TEXT="${COMMIT_TEXT}- [$COMMIT_MSG]($COMMIT_URL)"
           done
 
           # Prepare payload with proper newlines
-          PAYLOAD=$(jq -n --arg content "$ACTOR pushed to **main** in [$REPO](https://github.com/$REPO):
+          PAYLOAD=$(jq -n --arg content "🚀 $ACTOR pushed to **$BRANCH** in [$REPO](https://github.com/$REPO): 
           $COMMIT_TEXT" '{content: $content}')
 
           # Send to Discord
