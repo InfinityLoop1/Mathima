@@ -1,0 +1,24 @@
+name: Discord Push Notifications
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send commit message to Discord
+        run: |
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          COMMIT_URL="${{ github.event.head_commit.url }}"
+          REPO="${{ github.repository }}"
+          ACTOR="${{ github.actor }}"
+
+          PAYLOAD=$(jq -n \
+            --arg content "🚀 $ACTOR pushed to **main** in [$REPO]($COMMIT_URL):\n- $COMMIT_MSG" \
+            '{content: $content}')
+
+          curl -H "Content-Type: application/json" \
+               -d "$PAYLOAD" \
+               ${{ secrets.DISCORD_WEBHOOK }}
