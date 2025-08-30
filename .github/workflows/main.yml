@@ -12,12 +12,13 @@ jobs:
         id: commits
         run: |
           COMMIT_TEXT=""
-          # Read each commit safely
-          jq -c '.commits[]' < "${GITHUB_EVENT_PATH}" | while read commit; do
+          while read commit; do
             MSG=$(echo "$commit" | jq -r '.message')
             URL=$(echo "$commit" | jq -r '.url')
             COMMIT_TEXT="${COMMIT_TEXT}- [$MSG]($URL)"
-          done
+          done < <(jq -c '.commits[]' < "${GITHUB_EVENT_PATH}")
+
+          # Write output for later steps
           echo "commit_text<<EOF" >> $GITHUB_OUTPUT
           echo "$COMMIT_TEXT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
