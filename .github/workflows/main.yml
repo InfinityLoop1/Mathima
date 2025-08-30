@@ -27,7 +27,9 @@ jobs:
         uses: sarisia/actions-status-discord@v1.15.4
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "New push to ${{ github.ref_name }}"
-          description: "${{ steps.commits.outputs.commit_text }}"
+          title: "New Update"
+          description: |
+            **New push to ${{ github.ref_name }}**
+            ${{ steps.commits.outputs.commit_text }}
           noprefix: true
           nocontext: true
