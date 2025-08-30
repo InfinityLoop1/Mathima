@@ -15,6 +15,12 @@ jobs:
           while read commit; do
             MSG=$(echo "$commit" | jq -r '.message')
             URL=$(echo "$commit" | jq -r '.url')
+
+            # Skip commits starting with "Merge branch"
+            if [[ "$MSG" == Merge\ branch* ]]; then
+              continue
+            fi
+            
             COMMIT_TEXT="${COMMIT_TEXT}- [$MSG]($URL)
           "
           done < <(jq -c '.commits[]' < "${GITHUB_EVENT_PATH}")
@@ -34,3 +40,4 @@ jobs:
             ${{ steps.commits.outputs.commit_text }}
           noprefix: true
           nocontext: true
+          content: "<@&1411175159481634936>"
