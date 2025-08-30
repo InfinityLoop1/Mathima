@@ -16,7 +16,7 @@ jobs:
             MSG=$(echo "$commit" | jq -r '.message')
             URL=$(echo "$commit" | jq -r '.url')
             COMMIT_TEXT="${COMMIT_TEXT}- [$MSG]($URL)
-            "
+          "
           done < <(jq -c '.commits[]' < "${GITHUB_EVENT_PATH}")
 
           # Write output for later steps
