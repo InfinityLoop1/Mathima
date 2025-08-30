@@ -16,7 +16,8 @@ jobs:
           ACTOR="${{ github.actor }}"
 
           PAYLOAD=$(jq -n \
-            --arg content "🚀 $ACTOR pushed to **main** in [$REPO]($COMMIT_URL):\n- $COMMIT_MSG" \
+            --arg content "$ACTOR pushed to **main** in [$REPO]($COMMIT_URL):
+           $COMMIT_MSG"
             '{content: $content}')
 
           curl -H "Content-Type: application/json" \
