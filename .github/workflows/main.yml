@@ -15,11 +15,11 @@ jobs:
           REPO="${{ github.repository }}"
           ACTOR="${{ github.actor }}"
 
-          PAYLOAD=$(jq -n \
-            --arg content "$ACTOR pushed to **main** in [$REPO]($COMMIT_URL):
-           $COMMIT_MSG"
-            '{content: $content}')
+          CONTENT="🚀 $ACTOR pushed to **main** in [$REPO]($COMMIT_URL):
+          - $COMMIT_MSG"
+
+          PAYLOAD=$(jq -n --arg content "$CONTENT" '{content: $content}')
 
           curl -H "Content-Type: application/json" \
-               -d "$PAYLOAD" \
-               ${{ secrets.DISCORD_WEBHOOK }}
+           -d "$PAYLOAD" \
+           ${{ secrets.DISCORD_WEBHOOK }}
