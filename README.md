@@ -16,4 +16,4 @@ Credit must appear in both:
 - The repository README, and  
 - A user-accessible "About" or "Credits" section of the software or site.
 
-For full license terms, see the LICENSE file.
+For full license terms, see the LICENSE.md file.
