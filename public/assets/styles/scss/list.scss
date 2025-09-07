@@ -18,7 +18,7 @@
             min-height: 60px;
             display: flex;
             flex-direction: row;
-            align-items: space-between;
+            align-items: center;
             gap: 10px;
             padding: 10px;
             border-bottom: 1px solid $border-color;
@@ -32,27 +32,46 @@
                 text-align: left;
                 border: 0;
                 padding: 0;
-                width: 100%;
                 margin: 0;
-                box-sizing: border-box;
-                
-                
-                
+                box-sizing: border-box;  
+                justify-content: center;
+                max-height: min-content;
 
                 p,
                 strong {
                     text-align: left;
                     width: 100%;
+                    justify-self: center;
+                    min-width: 0;
+                    margin: 0;
                 }
             }
 
-            p,
-            strong,
+
+
+
             div {
                 margin: auto 0;
-                width: calc((100% - 25px) / 3);
+                flex: 0 1 0;
+                min-width: fit-content;
                 text-align: center;
                 overflow: hidden;
+            }
+
+            .hw-desc {
+                margin: auto 0;
+                flex: 1 1 0;
+                text-align: right;
+                padding-right: 20px;
+            }
+
+            .hw-dueDate {
+                margin: auto 0;
+                text-align: right;
+                flex: 0 0 auto;
+                white-space: nowrap;
+                min-width: max-content;
+                align-self: flex-end;
             }
 
             p, strong {
