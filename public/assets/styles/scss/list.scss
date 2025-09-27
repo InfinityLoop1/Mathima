@@ -74,6 +74,33 @@
                 align-self: flex-end;
             }
 
+            .late {
+                animation: pulse-red 1s infinite;
+                color: #ffdddd;
+                font-weight: 800;
+
+                @keyframes pulse-red {
+                    0% {
+                        color: #ffdddd;
+                        text-shadow: 0 0 0px #ff5555;
+                    }
+                    30% {
+                        color: #ff9999;
+                        text-shadow: 0 0 10px #ff5555;
+                    }
+                    100% {
+                        color: #ffdddd;
+                        text-shadow: 0 0 0px #ff5555;
+                    }
+                }
+            }
+
+            .late-no-anim {
+                color: #ff5555;
+                font-weight: 800;
+            }
+
+
             p, strong {
                 white-space: wrap;
                 text-overflow: ellipsis;
@@ -87,7 +114,7 @@
                 border: none;
                 transition-duration: 0.25s;
                 cursor: pointer;
-                color: white;
+                color: $text-primary;
                 font-size: 1rem;
                 font-weight: 900;
                 margin: auto 0;

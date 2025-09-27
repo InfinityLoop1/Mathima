@@ -1,0 +1,68 @@
+@use 'global' as *;
+
+.section {
+    background-color: $background-card;
+    color: $text-primary;
+    border: 1px solid $border-color;
+    box-shadow: 0 4px 6px rgba($background-card, 0.1);
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* From Uiverse.io by mobinkakei */ 
+.label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  color: #394a56;
+}
+
+.label-text {
+  margin-left: 16px;
+}
+
+.toggle {
+  isolation: isolate;
+  position: relative;
+  height: 30px;
+  width: 60px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: -8px -4px 8px 0px $background-card,
+    8px 4px 12px 0px $background-card,
+    4px 4px 4px 0px $background-main inset,
+    -4px -4px 4px 0px $background-main inset;
+}
+
+.toggle-state {
+  display: none;
+}
+
+.indicator {
+  height: 100%;
+  width: 200%;
+  background: $primary;
+  border-radius: 15px;
+  transform: translate3d(-75%, 0, 0);
+  transition: transform 0.4s cubic-bezier(0.85, 0.05, 0.18, 1.35), background 0.4s cubic-bezier(0.85, 0.05, 0.18, 1.35);
+  box-shadow: -8px -4px 8px 0px $background-main,
+    8px 4px 12px 0px $background-main;
+
+    
+}
+
+.toggle:hover .indicator {
+        background: $primary-hover;
+    }
+.toggle-state:checked ~ .indicator {
+  transform: translate3d(25%, 0, 0);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}

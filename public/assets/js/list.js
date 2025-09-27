@@ -56,8 +56,15 @@ function displayAssignedHomework() {
         `;
 
         if (new Date(hw.dueDate) < new Date()) {
-            div.getElementsByClassName('hw-dueDate')[0].style.color = '#ffbbbb';
-            div.getElementsByClassName('hw-dueDate')[0].style.fontWeight = 'bold';
+            if (localStorage.getItem("animationsEnabled") === null) {
+                localStorage.setItem("animationsEnabled", "true");
+                div.getElementsByClassName('hw-dueDate')[0].classList.add('late');
+            } else if (localStorage.getItem("animationsEnabled") === "true") {
+                div.getElementsByClassName('hw-dueDate')[0].classList.add('late');
+            } else {
+                div.getElementsByClassName('hw-dueDate')[0].classList.add('late-no-anim');
+            }
+            
         }
 
         // fade in if it's a new item
