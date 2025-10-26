@@ -48,6 +48,24 @@ function addHomework() {
     document.getElementById('page-frame').contentWindow.displayAssignedHomework();
 }
 
+function addClass() {
+    classes = JSON.parse(localStorage.getItem('classes')) || [];
+    const className = document.getElementById('class-name').value;
+    const classEmoji = document.getElementById('class-emoji').innerText;
+    const classTeacher = document.getElementById('class-teacher').value;
+    const classRoom = document.getElementById('class-room').value;
+    const classId = Date.now() + Math.random();
+    const newClass = {
+        id: classId,
+        name: className,
+        emoji: classEmoji,
+        teacher: classTeacher,
+        room: classRoom
+    };
+    classes.push(newClass);
+    localStorage.setItem('classes', JSON.stringify(classes));
+}
+
 
 document.getElementById('cancel-creator-button').addEventListener('click', () => {
     document.getElementById('popup-bg').classList.remove('show');

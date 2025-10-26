@@ -19,11 +19,24 @@
         </div>
     </div>
     <div id="homework-controls">
-        <select id="sort-homework-dropdown">
+        <select id="sort-homework-dropdown" class="visually-hidden" aria-hidden="true">
             <option value="dueDate">Sort by Due Date</option>
             <option value="name">Sort by Name</option>
             <option value="class">Sort by Subject</option>
         </select>
+
+        <div class="custom-select" data-linked-select="sort-homework-dropdown">
+            <button class="custom-select__button" aria-haspopup="listbox" aria-expanded="false" type="button">
+                <span class="material-symbols-rounded custom-select__icon">calendar_today</span>
+                <span class="custom-select__label">Sort by Due Date</span>
+                <span class="material-symbols-rounded custom-select__chev">expand_more</span>
+            </button>
+            <ul class="custom-select__list" role="listbox" tabindex="-1">
+                <li role="option" data-value="dueDate"><span class="material-symbols-rounded">calendar_today</span>Sort by Due Date</li>
+                <li role="option" data-value="name"><span class="material-symbols-rounded">text_fields</span>Sort by Name</li>
+                <li role="option" data-value="class"><span class="material-symbols-rounded">class</span>Sort by Subject</li>
+            </ul>
+        </div>
 
         <button id="toggle-completed-button">Show Completed</button>
     </div>

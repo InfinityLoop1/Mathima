@@ -1,16 +1,16 @@
 // load allat data shit
 homework = JSON.parse(localStorage.getItem('homework')) || [];
-finishedHomework = JSON.parse(localStorage.getItem('finishedHomework')) || [];
 showCompleted = false;
 
 // assign UIDs if missing
 homework.forEach(hw => { if (!hw.id) hw.id = Date.now() + Math.random(); });
-finishedHomework.forEach(hw => { if (!hw.id) hw.id = Date.now() + Math.random(); });
 
 function displayAssignedHomework() {
     homework = JSON.parse(localStorage.getItem('homework')) || [];
     const dropdown = document.getElementById('sort-homework-dropdown');
     const selectedOption = dropdown.options[dropdown.selectedIndex].value;
+
+    homework = homework.filter(hw => !hw.completedAt);
 
     if (selectedOption === 'dueDate') {
         homework.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
@@ -82,16 +82,18 @@ function displayAssignedHomework() {
 }
 
 function displayCompletedHomework() {
-    finishedHomework = JSON.parse(localStorage.getItem('finishedHomework')) || [];
+    homework = JSON.parse(localStorage.getItem('homework')) || [];
     const dropdown = document.getElementById('sort-homework-dropdown');
     const selectedOption = dropdown.options[dropdown.selectedIndex].value;
 
+    const completedHomework = homework.filter(hw => hw.completedAt);
+
     if (selectedOption === 'dueDate') {
-        finishedHomework.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+        completedHomework.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
     } else if (selectedOption === 'class') {
-        finishedHomework.sort((a, b) => a.class.localeCompare(b.class));
+        completedHomework.sort((a, b) => a.class.localeCompare(b.class));
     } else if (selectedOption === 'name') {
-        finishedHomework.sort((a, b) => a.name.localeCompare(b.name));
+        completedHomework.sort((a, b) => a.name.localeCompare(b.name));
     }
 
     const container = document.getElementById('completed-homework');
@@ -114,7 +116,7 @@ function displayCompletedHomework() {
 
     container.innerHTML = '';
 
-    if (finishedHomework.length === 0) {
+    if (completedHomework.length === 0) {
         if (showCompleted == true) {
             const completedContainer = document.getElementById('completed-homework');
             const msgDiv = document.createElement('div');
@@ -131,7 +133,7 @@ function displayCompletedHomework() {
         return;
     }
 
-    finishedHomework.forEach(hw => {
+    completedHomework.forEach(hw => {
         const div = document.createElement('div');
         div.classList.add('completed-item');
         div.dataset.id = hw.id;
@@ -148,7 +150,6 @@ function displayCompletedHomework() {
             <p class="hw-desc">${hw.description}</p>
             <p class="hw-dueDate">${formatDateTime(hw.dueDate)}</p>
         `;
-        // Fade in if toggled on
         if (showCompleted == true && wasHidden) {
             div.style.opacity = '0';
             container.appendChild(div);
@@ -195,6 +196,95 @@ function setCompletedHomework(boolean) {
     }
 }
 
+// initialize a custom dropdown that syncs with a native select
+function initCustomSelect() {
+    const select = document.getElementById('sort-homework-dropdown');
+    const custom = document.querySelector('.custom-select[data-linked-select="sort-homework-dropdown"]');
+    if (!select || !custom) return;
+
+    select.classList.add('visually-hidden');
+
+    const button = custom.querySelector('.custom-select__button');
+    const list = custom.querySelector('.custom-select__list');
+
+    const setSelected = (value) => {
+        const opt = Array.from(select.options).find(o => o.value === value) || select.options[0];
+        select.value = opt.value;
+
+        const li = list.querySelector(`li[data-value="${opt.value}"]`);
+        Array.from(list.querySelectorAll('li')).forEach(item => {
+            item.classList.remove('selected');
+            item.setAttribute('aria-selected', 'false');
+        });
+
+        if (li) {
+            const icon = li.querySelector('.material-symbols-rounded')?.textContent || '';
+            const label = li.textContent.replace(icon, '').trim();
+            const iconEl = button.querySelector('.custom-select__icon');
+            const labelEl = button.querySelector('.custom-select__label');
+            if (iconEl) iconEl.textContent = icon;
+            if (labelEl) labelEl.textContent = label;
+
+            li.classList.add('selected');
+            li.setAttribute('aria-selected', 'true');
+        }
+
+        select.dispatchEvent(new Event('change'));
+    };
+
+    setSelected(select.value || select.options[0].value);
+
+    button.addEventListener('click', (e) => {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', String(!expanded));
+        list.classList.toggle('open', !expanded);
+    });
+
+    list.addEventListener('click', (e) => {
+        const li = e.target.closest('li');
+        if (!li) return;
+        setSelected(li.dataset.value);
+        button.setAttribute('aria-expanded', 'false');
+        list.classList.remove('open');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!custom.contains(e.target)) {
+            button.setAttribute('aria-expanded', 'false');
+            list.classList.remove('open');
+        }
+    });
+
+    button.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            button.click();
+            const last = list.querySelector('li:last-child');
+            last && last.focus();
+        }
+    });
+
+    Array.from(list.querySelectorAll('li')).forEach(li => {
+        li.tabIndex = 0;
+        li.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                li.click();
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                (li.nextElementSibling || list.querySelector('li')).focus();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                (li.previousElementSibling || list.querySelector('li:last-child')).focus();
+            } else if (e.key === 'Escape') {
+                button.focus();
+                button.setAttribute('aria-expanded', 'false');
+                list.classList.remove('open');
+            }
+        });
+    });
+}
+
 
 // handle all button clicks
 document.getElementById('homework-container').addEventListener('click', event => {
@@ -208,9 +298,8 @@ document.getElementById('homework-container').addEventListener('click', event =>
         if (idx !== -1) {
             const [completed] = homework.splice(idx, 1);
             completed.completedAt = new Date().toISOString();
-            finishedHomework.push(completed);
+            homework.push(completed);
             localStorage.setItem('homework', JSON.stringify(homework));
-            localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));
             item.style.opacity = '0';
             for (let i = idx; i < homework.length; i++) {
                 const itemDiv = document.querySelector(`.homework-item[data-id="${homework[i].id}"]`);
@@ -229,21 +318,20 @@ document.getElementById('homework-container').addEventListener('click', event =>
         return;
     }
 
-    // restore finished homework
+    // restore completed homework
     if (event.target.classList.contains('restore-btn')) {
         const item = event.target.closest('.completed-item');
         if (!item) return;
         const id = item.dataset.id;
-        const idx = finishedHomework.findIndex(hw => String(hw.id) === String(id));
+        const idx = homework.findIndex(hw => String(hw.id) === String(id));
         if (idx !== -1) {
-            const [restored] = finishedHomework.splice(idx, 1);
+            const [restored] = homework.splice(idx, 1);
             delete restored.completedAt;
             homework.push(restored);
             localStorage.setItem('homework', JSON.stringify(homework));
-            localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));
             item.style.opacity = '0';
-            for (let i = idx; i < finishedHomework.length; i++) {
-                const itemDiv = document.querySelector(`.completed-item[data-id="${finishedHomework[i].id}"]`);
+            for (let i = idx; i < homework.length; i++) {
+                const itemDiv = document.querySelector(`.completed-item[data-id="${homework[i].id}"]`);
                 if (itemDiv) {
                     itemDiv.style.transform = 'translateY(-60px)';
                     setTimeout(() => {
@@ -259,16 +347,15 @@ document.getElementById('homework-container').addEventListener('click', event =>
         return;
     }
 
-    // delete finished homework permanently
+    // delete completed homework permanently
     if (event.target.classList.contains('delete-btn')) {
         const item = event.target.closest('.completed-item');
         if (!item) return;
         const id = item.dataset.id;
-        const idx = finishedHomework.findIndex(hw => String(hw.id) === String(id));
+        const idx = homework.findIndex(hw => String(hw.id) === String(id));
         if (idx !== -1) {
-            finishedHomework.splice(idx, 1);
+            homework.splice(idx, 1);
             localStorage.setItem('homework', JSON.stringify(homework));
-            localStorage.setItem('finishedHomework', JSON.stringify(finishedHomework));
             item.style.transition = 'opacity 0.2s';
             item.style.opacity = '0';
             setTimeout(() => {
@@ -287,3 +374,5 @@ document.getElementById('toggle-completed-button').addEventListener('click', tog
 
 displayAssignedHomework();
 displayCompletedHomework();
+// initialize custom select after initial render
+initCustomSelect();

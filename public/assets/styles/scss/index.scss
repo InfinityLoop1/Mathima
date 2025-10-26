@@ -38,6 +38,14 @@
     }
 
     .navsmall {
+        &.settings {
+            span {
+                transition: transform 0.5s;
+                &:hover {
+                    transform: rotate(360deg);
+                }
+            }
+        }
         span {
             font-size: 36px;
         }
@@ -47,7 +55,7 @@
             transition: opacity 0.5s, transform 0.5s;
             margin: 0;
             padding: 0;
-            transform: translateY(10px);
+            transform: translateY(5px);
         }
         padding: 10px;
         border-radius: 10px;
