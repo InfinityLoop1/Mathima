@@ -41,7 +41,9 @@
         &.settings {
             span {
                 transition: transform 0.5s;
-                &:hover {
+            }
+            &:hover {
+                span {
                     transform: rotate(360deg);
                 }
             }

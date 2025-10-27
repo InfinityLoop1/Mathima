@@ -111,31 +111,4 @@ body {
     }
 }
 
-.add-button {
-    background-color: $background-card;
-    color: $text-primary;
-    border: 1px solid $border-color;
-    border-radius: 5px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    width: 75%;
-    margin: 20px auto;
-    transition: background-color 0.5s;
 
-    span {
-        font-size: 36px;
-    }
-
-    p {
-        margin: 0;
-        margin-top: 5px;
-    }
-
-    &:hover {
-        background-color: $primary-hover;
-    }
-}

@@ -64,6 +64,7 @@ function addClass() {
     };
     classes.push(newClass);
     localStorage.setItem('classes', JSON.stringify(classes));
+    console.log('Class added:', newClass);
 }
 
 
@@ -85,6 +86,8 @@ document.getElementById('save-creator-button').addEventListener('click', () => {
     if (selectedRadio) {
         if (selectedRadio.value === 'homework') {
             addHomework();
+        } else if (selectedRadio.value === 'class') {
+            addClass();
         }
     }
 });
