@@ -27,7 +27,7 @@
         border-radius: 50%;
         transform: translateY(-15px);
         border: 10px solid $background-main;
-        transition-duration: 0.5s;
+        transition: background-color 0.5s, transform 0.5s;
         width: 64px;
         height: 64px;
 
@@ -45,6 +45,160 @@
             &:hover {
                 span {
                     transform: rotate(360deg);
+                }
+            }
+        }
+        //idfk how this works but thanks chatgpt
+        &.calendar {
+            span {
+                position: relative;
+                display: inline-block;
+                color: transparent; /* hide the original ligature text so pseudo-elements show */
+
+                &::before,
+                &::after {
+                    font-family: "Material Symbols Rounded";
+                    font-weight: normal;
+                    font-style: normal;
+                    font-size: 36px;
+                    line-height: 1;
+                    display: inline-block;
+                    transition: opacity 0.25s ease, transform 0.25s ease;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%) scale(1);
+                    z-index: 2;
+                    color: $text-primary; /* ensure pseudo-elements are visible even if parent text is hidden */
+                    pointer-events: none;
+                }
+
+                /* default icon */
+                &::before {
+                    content: "calendar_today";
+                    opacity: 1;
+                }
+
+                /* hover icon (starts invisible) */
+                &::after {
+                    content: "calendar_month";
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.95);
+                }
+            }
+
+            &:hover {
+                span {
+                    &::before {
+                        opacity: 0;
+                        transform: translate(-50%, -50%) scale(0.95);
+                    }
+                    &::after {
+                        opacity: 1;
+                        transform: translate(-50%, -50%) scale(1);
+                    }
+                }
+            }
+        }
+        &.list {
+            span {
+                position: relative;
+                display: inline-block;
+                color: transparent; /* hide the original ligature text so pseudo-elements show */
+
+                &::before,
+                &::after {
+                    font-family: "Material Symbols Rounded";
+                    font-weight: normal;
+                    font-style: normal;
+                    font-size: 36px;
+                    line-height: 1;
+                    display: inline-block;
+                    transition: opacity 0.25s ease, transform 0.25s ease;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%) scale(1);
+                    z-index: 2;
+                    color: $text-primary; /* ensure pseudo-elements are visible even if parent text is hidden */
+                    pointer-events: none;
+                }
+
+                /* default icon */
+                &::before {
+                    content: "checklist";
+                    opacity: 1;
+                }
+
+                /* hover icon (starts invisible) */
+                &::after {
+                    content: "lists";
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.95);
+                }
+            }
+
+            &:hover {
+                span {
+                    &::before {
+                        opacity: 0;
+                        transform: translate(-50%, -50%) scale(0.95);
+                    }
+                    &::after {
+                        opacity: 1;
+                        transform: translate(-50%, -50%) scale(1);
+                    }
+                }
+            }
+        }
+        &.schedule {
+            span {
+                position: relative;
+                display: inline-block;
+                color: transparent; /* hide the original ligature text so pseudo-elements show */
+
+                &::before,
+                &::after {
+                    font-family: "Material Symbols Rounded";
+                    font-weight: normal;
+                    font-style: normal;
+                    font-size: 36px;
+                    line-height: 1;
+                    display: inline-block;
+                    transition: opacity 0.25s ease, transform 0.25s ease;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%) scale(1);
+                    z-index: 2;
+                    color: $text-primary; /* ensure pseudo-elements are visible even if parent text is hidden */
+                    pointer-events: none;
+                }
+
+                /* default icon */
+                &::before {
+                    content: "calendar_view_day";
+                    opacity: 1;
+                }
+
+                /* hover icon (starts invisible) */
+                &::after {
+                    content: "view_agenda";
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.95);
+                }
+            }
+
+            &:hover {
+                span {
+                    &::before {
+                        opacity: 0;
+                        transform: translate(-50%, -50%) scale(0.95);
+                    }
+                    &::after {
+                        opacity: 1;
+                        transform: translate(-50%, -50%) scale(1);
+                    }
                 }
             }
         }
@@ -166,6 +320,8 @@
     flex-direction: column;
     gap: 10px;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
 #creator-popup.show {
@@ -464,4 +620,10 @@
 .radio-inputs .radio input:checked + .name {
     background-color: $primary;
     font-weight: 600;
+}
+
+.name {
+    span {
+        margin-right: 5px;
+    }
 }
