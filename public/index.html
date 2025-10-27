@@ -71,21 +71,27 @@
             </div>
 
             <div id="add-homework-container" class="creator-container shown-creator-container">
-                <input type="text" id="homework-name" placeholder="Name" />
-                <input type="text" id="homework-description" placeholder="Description" />
-                <input type="datetime-local" id="homework-due-date" placeholder="Due Date" />
-                <input type="text" id="homework-class" placeholder="Subject" />
+                <h2 class="creator-title"><span class="material-symbols-rounded">assignment</span>Create Homework / Assignment</h2>
+                <label for="homework-name">Name</label>
+                <input type="text" id="homework-name" placeholder="" />
+                <label for="homework-description">Description</label>
+                <input type="text" id="homework-description" placeholder="" />
+                <label for="homework-due-date">Due Date</label>
+                <input type="datetime-local" id="homework-due-date" placeholder="" />
+                <label for="homework-class">Subject</label>
+                <input type="text" id="homework-class" placeholder="" />
             </div>
 
             <div id="add-event-container" class="creator-container">
+                
                 <p>Work in progress!</p>   
             </div>
 
             <div id="add-class-container" class="creator-container">
                 <div id="class-builder">
                     <div id="class-info">
-                        <h2>Create Class</h2>
-                        <label for="class-name">Period Name</label>
+                        <h2 class="creator-title"><span class="material-symbols-rounded">class</span>Create Class</h2>
+                        <label for="class-name">Class Name</label>
                         <input type="text" id="class-name" />
 
                         <label for="class-teacher">Teacher Name</label>
@@ -105,7 +111,7 @@
             </div>
 
             <div id="add-schedule-container" class="creator-container">
-                <h2>Create Schedule</h2>
+                <h2 class="creator-title"><span class="material-symbols-rounded">schedule</span>Create Schedule</h2>
                 <label for="schedule-name">Schedule Name</label>
                 <input type="text" id="schedule-name" />
 
@@ -113,7 +119,6 @@
                 <textarea id="schedule-description"></textarea>
 
                 <div id="schedule-builder">
-                    <p><span class="material-symbols-rounded">warning</span> Add all periods/blocks from first to last <span class="material-symbols-rounded">warning</span></p>
                     <div id="schedule-preview"></div>
                     <button id="add-class-button">Add Period/Block/Class</button>
                 </div>

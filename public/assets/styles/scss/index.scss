@@ -390,12 +390,7 @@
 }
 
 #add-homework-container {
-    justify-items: center;
-    align-items: center;
     flex-direction: column;
-    flex-grow: 1;
-    justify-content: space-between;
-    align-items: stretch;
     gap: 10px;
 
     input {
@@ -406,13 +401,13 @@
         border: 1px solid $border-color;
         border-radius: 5px;
         padding: 10px;
-        height: 7.5vh;
         font-family: "Outfit", sans-serif;
     }
 }
 
 #add-schedule-container {
     flex-direction: column;
+    gap: 10px;
 
     input,
     textarea {
@@ -625,5 +620,17 @@
 .name {
     span {
         margin-right: 5px;
+    }
+}
+
+.creator-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    margin: 0 0 10px 0;
+
+    span {
+        font-size: 40px;
     }
 }
