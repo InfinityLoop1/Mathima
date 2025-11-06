@@ -5,6 +5,26 @@ showCompleted = false;
 // assign UIDs if missing
 homework.forEach(hw => { if (!hw.id) hw.id = Date.now() + Math.random(); });
 
+function addHomework() {
+    try {
+        //try to call the parent's creator popup to open the homework builder
+        if (window.parent && typeof window.parent.creatorPopup === 'function') {
+            window.parent.creatorPopup();
+
+            const radio = window.parent.document.querySelector('input[name="creator-radio"][value="homework"]');
+            if (radio) {
+                radio.checked = true;
+                radio.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+            return;
+        }
+    } catch (err) {
+        console.error('Could not open parent creatorPopup!', err);
+    }
+}
+
+document.getElementById('add-homework-button').addEventListener('click', addHomework);
+
 function displayAssignedHomework() {
     homework = JSON.parse(localStorage.getItem('homework')) || [];
     const dropdown = document.getElementById('sort-homework-dropdown');

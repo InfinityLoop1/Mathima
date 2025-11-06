@@ -115,11 +115,7 @@ function displayClasses() {
 
 document.addEventListener('DOMContentLoaded', () => {
     displayClasses();
-
-    const addClassBtn = document.getElementById('add-class-button');
-    if (addClassBtn) {
-        addClassBtn.addEventListener('click', addClass);
-    }
+    document.getElementById('add-class-button').addEventListener('click', addClass);
 });
 
 

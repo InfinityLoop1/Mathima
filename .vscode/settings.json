@@ -8,4 +8,5 @@
         }
     ],
     "liveSassCompile.settings.generateMap": false,
+    "liveServer.settings.root": "/public"
 }
